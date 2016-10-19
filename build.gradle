@@ -4,12 +4,19 @@ buildscript {
     }
     repositories {
         mavenLocal()
-        maven { url "https://repo.grails.org/grails/core" }
+        maven {
+            url "https://plugins.gradle.org/m2/"
+
+        }
+        maven { 
+            url "https://repo.grails.org/grails/core" 
+        }
     }
     dependencies {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "org.grails.plugins:hibernate4:5.0.10"
         classpath "org.grails.plugins:views-gradle:1.0.12"
+        classpath "com.moowork.gradle:gradle-node-plugin:0.11" // version 13 does not work
     }
 }
 
@@ -21,7 +28,7 @@ apply plugin:"idea"
 apply plugin:"war"
 apply plugin:"org.grails.grails-web"
 apply plugin:"org.grails.plugins.views-json"
-
+apply plugin: "com.moowork.node"
 ext {
     grailsVersion = project.grailsVersion
     gradleWrapperVersion = project.gradleWrapperVersion
@@ -38,6 +45,31 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
+
+node {
+    version = '6.4.0'
+    download = true
+    nodeModulesDir = file("${project.projectDir}/frontend")
+}
+
+task cleanPublic(type: Delete) {
+    delete './src/main/resources/public'
+}
+
+task buildFrontend(type: NpmTask, dependsOn: [cleanPublic, npmInstall]) {
+    workingDir './frontend'
+    args = ['run', 'build']
+
+    inputs.files file('./frontend')
+    outputs.files file('frontend/build')
+}
+
+task copyFrontendToPublic(type: Copy, dependsOn: [buildFrontend]) {
+    from "frontend/build"
+    into "./src/main/resources/public"
+}
+
+processResources.dependsOn copyFrontendToPublic
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"
