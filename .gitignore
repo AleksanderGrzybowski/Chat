@@ -12,3 +12,4 @@ classes/
 .classpath
 frontend/node_modules
 frontend/build
+src/main/resources/public
