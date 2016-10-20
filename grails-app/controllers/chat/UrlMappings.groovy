@@ -3,11 +3,8 @@ package chat
 class UrlMappings {
 
     static mappings = {
-        "/$controller/$action?/$id?(.$format)?"{
-            constraints {
-                // apply constraints here
-            }
-        }
+        "/api/secret"(controller: 'test', action: 'secret')
+        "/guest/public"(controller: 'test', action: 'guest')
         
         "/"(redirect: "/index.html")
         "500"(view: '/error')

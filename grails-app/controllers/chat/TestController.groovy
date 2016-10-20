@@ -1,14 +1,17 @@
 package chat
 
-import grails.converters.JSON
-
-class NumberDto {
-    Integer number
-}
+import grails.plugin.springsecurity.annotation.Secured
 
 class TestController {
-    
-    def square(NumberDto dto) {
-        render([provided: dto.number, squared: dto.number**2] as JSON)
+   
+    @Secured('ROLE_CHAT_USER')
+    def secret() {
+        render 'You accessed secret information'
     }
+
+    @Secured('isAnonymous()')
+    def guest() {
+        render 'You have guest information'
+    }
+
 }
