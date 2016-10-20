@@ -1,6 +1,6 @@
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'chat.User'
-grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'chat.UserRole' // not used
+grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'chat.UserRole'
 grails.plugin.springsecurity.authority.className = 'chat.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
         [pattern: '/', access: ['permitAll']]

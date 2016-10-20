@@ -5,12 +5,11 @@ import grails.plugin.springsecurity.annotation.Secured
 import org.grails.plugins.console.ConsoleService
 import org.grails.plugins.console.Evaluation
 
+@Secured('ROLE_ADMIN')
 class AdminController {
 
     ConsoleService consoleService
 
-    // TODO: implement admin user
-    @Secured('ROLE_CHAT_USER')
     def evaluate(String code) {
         Evaluation eval = consoleService.eval(code, true, request)
 

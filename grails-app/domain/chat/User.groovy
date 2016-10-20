@@ -14,13 +14,12 @@ class User implements Serializable {
     String username
     String password
     boolean enabled = true
-    boolean accountExpired = false
-    boolean accountLocked = false
-    boolean passwordExpired = false
+    boolean accountExpired
+    boolean accountLocked
+    boolean passwordExpired
 
-    // just use one role for all users to shut up the plugin
     Set<Role> getAuthorities() {
-        [Role.findByAuthority('ROLE_CHAT_USER')]
+        UserRole.findAllByUser(this)*.role
     }
 
     def beforeInsert() {
@@ -43,8 +42,4 @@ class User implements Serializable {
         password blank: false, password: true
         username blank: false, unique: true
     }
-
-//	static mapping = {
-//		password column: '`password`'
-//	}
 }
