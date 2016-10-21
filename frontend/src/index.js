@@ -3,19 +3,23 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { login, usersList } from './reducers';
-import { tryLogin, logout, fetchUsers } from './actions';
+import { login, usersList, conversation } from './reducers';
+import { tryLogin, logout, fetchUsers, fetchConversationFor, changeSelectedUser } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
 
 const logger = createLogger();
-const store = createStore(combineReducers({login, usersList}), applyMiddleware(thunk, logger));
+const store = createStore(combineReducers({login, usersList, conversation}), applyMiddleware(thunk, logger));
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (username, password) => dispatch(tryLogin(username, password)),
         onLogout: () => dispatch(logout()),
-        fetchUsers: () => dispatch(fetchUsers())
+        fetchUsers: () => dispatch(fetchUsers()),
+        changeSelectedUser: (userId) => {
+            dispatch(fetchConversationFor(userId));
+            dispatch(changeSelectedUser(userId));
+        }
     }
 };
 

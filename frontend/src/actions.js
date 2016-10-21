@@ -24,3 +24,17 @@ export const fetchUsers = () => (dispatch, getState) => {
 };
 
 export const logout = () => ({type: 'LOGOUT'});
+
+const loadConversation = (messages) => ({type: 'LOAD_CONVERSATION', messages});
+
+export const fetchConversationFor = (userId) => (dispatch, getState) => {
+    const {username, password} = getState().login;
+    
+    axios.get(`${backendUrl}/api/message/listAll?userId=${userId}`, {
+        auth: {username, password}
+    })
+        .then((response) => dispatch(loadConversation(response.data)))
+        .catch((err) => console.log(err));
+};
+
+export const changeSelectedUser = (userId) => ({type: 'CHANGE_SELECTED_USER', userId});

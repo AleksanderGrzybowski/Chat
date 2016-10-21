@@ -4,7 +4,7 @@ export const login = (state = initialState, action) => {
         case 'LOGIN_SUCCESSFULL':
             return {loggedIn: true, loginError: false, username: action.username, password: action.password};
         case 'LOGIN_ERROR':
-            return Object.assign({}, initialState, {loginError: true});
+            return Object.assign({}, state, initialState, {loginError: true});
         case 'LOGOUT':
             return initialState;
         default:
@@ -12,10 +12,23 @@ export const login = (state = initialState, action) => {
     }
 };
 
-export const usersList = (state = {users: []}, action) => {
+export const usersList = (state = {users: [], currentUserId: 1}, action) => { // TODO 1?
     switch (action.type) {
         case 'LOAD_USERS':
-            return Object.assign({}, {users: action.users});
+            return Object.assign({}, state, {users: action.users});
+        case 'CHANGE_SELECTED_USER':
+            return Object.assign({}, state, {currentUserId: action.userId});
+        default:
+            return state
+    }
+};
+
+export const conversation = (state = {currentUserId: 1, messages: []}, action) => { // TODO 1?
+    switch (action.type) {
+        case 'LOAD_CONVERSATION':
+            return Object.assign({}, state, {messages: action.messages});
+        case 'CHANGE_SELECTED_USER':
+            return Object.assign({}, state, {currentUserId: action.userId});
         default:
             return state
     }

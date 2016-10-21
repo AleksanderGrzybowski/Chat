@@ -1,8 +1,21 @@
 import React from 'react';
 
-const UserList = ({active, username}) => {
+const UserList = ({active, selected, username, changeSelectedUser}) => {
+    let style = {};
+    if (active) {
+        style.fontWeight = 'bold';
+    }
+    if (selected) {
+        style.color = 'green';
+    }
     return (
-        <li style={active ? {fontWeight: 'bold'} : null}>{username}</li>
+    
+        <li
+            onClick={changeSelectedUser}
+            style={style}
+        >
+            {username}
+        </li>
     )
 };
 
