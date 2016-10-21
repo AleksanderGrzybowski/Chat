@@ -11,7 +11,9 @@ export default class App extends Component {
                 </div>
             )
         } else return (
-            <LoginForm onLogin={this.props.onLogin}/>
+            <div>
+                <LoginForm onLogin={this.props.onLogin} loginError={this.props.login.loginError}/>
+            </div>
         );
     }
 }

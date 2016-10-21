@@ -28,6 +28,7 @@ export default class LoginForm extends Component {
                 Username <input type="text" value={this.state.username} onChange={this.usernameChange}/>
                 Password <input type="text" value={this.state.password} onChange={this.passwordChange}/>
                 <button onClick={this.login}>Login</button>
+                {this.props.loginError ? <span>Login error, please check password</span> : null}
             </div>
         )
     }

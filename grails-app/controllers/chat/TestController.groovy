@@ -1,12 +1,15 @@
 package chat
 
+import grails.converters.JSON
 import grails.plugin.springsecurity.annotation.Secured
 
 class TestController {
+    
+    def springSecurityService
    
-    @Secured('ROLE_CHAT_USER')
-    def secret() {
-        render 'You accessed secret information'
+    @Secured('IS_AUTHENTICATED_FULLY')
+    def auth() {
+        render ([youAre: springSecurityService.currentUser.json] as JSON)
     }
 
     @Secured('isAnonymous()')

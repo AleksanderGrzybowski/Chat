@@ -42,4 +42,8 @@ class User implements Serializable {
         password blank: false, password: true
         username blank: false, unique: true
     }
+
+    Map getJson() {
+        [username: username]
+    }
 }

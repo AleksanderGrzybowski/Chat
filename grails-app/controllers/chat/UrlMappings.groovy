@@ -3,7 +3,7 @@ package chat
 class UrlMappings {
 
     static mappings = {
-        "/api/secret"(controller: 'test', action: 'secret')
+        "/api/auth"(controller: 'test', action: 'auth')
         
         "/guest/public"(controller: 'test', action: 'guest')
 
