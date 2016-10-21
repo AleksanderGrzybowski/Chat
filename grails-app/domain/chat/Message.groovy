@@ -13,6 +13,7 @@ class Message {
     
     Map getJson() {
         return [
+                id: id,
                 text: text,
                 timestamp: timestamp,
                 from: from.json,
