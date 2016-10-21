@@ -11,4 +11,12 @@ export const login = (state = initialState, action) => {
             return state;
     }
 };
-    
+
+export const usersList = (state = {users: []}, action) => {
+    switch (action.type) {
+        case 'LOAD_USERS':
+            return Object.assign({}, {users: action.users});
+        default:
+            return state
+    }
+};

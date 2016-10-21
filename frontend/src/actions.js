@@ -11,4 +11,16 @@ export const tryLogin = (username, password) => (dispatch) => {
         .catch(() => dispatch(loginError()));
 };
 
+const loadUsers = (users) => ({type: 'LOAD_USERS', users});
+
+export const fetchUsers = () => (dispatch, getState) => {
+    const {username, password} = getState().login;
+    
+    axios.get(`${backendUrl}/api/user/chatUsers`, {
+        auth: {username, password}
+    })
+        .then((response) => dispatch(loadUsers(response.data.chatUsers)))
+        .catch((err) => console.log(err));
+};
+
 export const logout = () => ({type: 'LOGOUT'});
