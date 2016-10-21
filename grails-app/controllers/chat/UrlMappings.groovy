@@ -4,6 +4,7 @@ class UrlMappings {
 
     static mappings = {
         "/api/auth"(controller: 'test', action: 'auth')
+        "/api/user/chatUsers"(controller: 'test', action: 'listChatUsers')
         
         "/guest/public"(controller: 'test', action: 'guest')
 
