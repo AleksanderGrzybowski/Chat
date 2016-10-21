@@ -44,6 +44,6 @@ class User implements Serializable {
     }
 
     Map getJson() {
-        [username: username]
+        [username: username, id: id]
     }
 }
