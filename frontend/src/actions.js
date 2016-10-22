@@ -38,3 +38,14 @@ export const fetchConversationFor = (userId) => (dispatch, getState) => {
 };
 
 export const changeSelectedUser = (userId) => ({type: 'CHANGE_SELECTED_USER', userId});
+
+export const sendMessage = (text) => (dispatch, getState) => {
+    const {username, password} = getState().login;
+    const toUserId = getState().conversation.currentUserId;
+
+    axios.post(`${backendUrl}/api/message/create`, {userId: toUserId, text}, {
+        auth: {username, password}
+    })
+        .then(() => dispatch(fetchConversationFor(toUserId)))
+        .catch((err) => console.log(err));
+};

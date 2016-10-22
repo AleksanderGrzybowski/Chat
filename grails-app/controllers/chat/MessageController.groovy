@@ -18,6 +18,22 @@ class MessageController {
         render(combined*.json as JSON)
     }
 
+    def create(PostNewMessageDto dto) {
+        Message created = new Message(
+                from: springSecurityService.currentUser,
+                to: User.findById(dto.userId),
+                text: dto.text,
+                timestamp: 1337,
+        ).save(failOnError: true)
+
+        render(created.json as JSON)
+    }
+
+}
+
+class PostNewMessageDto {
+    Long userId
+    String text
 }
 
 class ListAllMessagesDto {

@@ -7,6 +7,7 @@ class UrlMappings {
         "/api/user/chatUsers"(controller: 'test', action: 'listChatUsers')
 
         "/api/message/listAll"(controller: 'message', action: 'listAll')
+        "/api/message/create"(controller: 'message', action: 'create')
        
         "/guest/public"(controller: 'test', action: 'guest')
 

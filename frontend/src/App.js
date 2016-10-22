@@ -2,6 +2,7 @@ import React, { Component } from 'react';
 import LoginForm from './LoginForm';
 import UserList from './UserList';
 import Conversation from './Conversation';
+import NewMessage from './NewMessage';
 
 export default class App extends Component {
     render() {
@@ -17,6 +18,7 @@ export default class App extends Component {
                         changeSelectedUser={this.props.changeSelectedUser}
                     />
                     <Conversation messages={this.props.conversation.messages}/>
+                    <NewMessage sendMessage={this.props.sendMessage}/>
                 </div>
             )
         } else return (
