@@ -1,13 +1,14 @@
 import React from 'react';
+import {ListGroupItem} from 'react-bootstrap';
 
 const UserList = ({selected, username, changeSelectedUser}) => {
     return (
-        <li
+        <ListGroupItem
             onClick={changeSelectedUser}
-            style={selected ? {color: 'green'} : null}
+            active={selected}
         >
             {username}
-        </li>
+        </ListGroupItem>
     )
 };
 

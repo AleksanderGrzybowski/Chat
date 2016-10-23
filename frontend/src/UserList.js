@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import UserListElement from './UserListElement';
+import { ListGroupItem } from 'react-bootstrap';
 
 export default class UserList extends Component {
     componentDidMount() {
@@ -18,9 +19,9 @@ export default class UserList extends Component {
         );
         return (
             <div>
-                <ul>
+                <ListGroupItem>
                     {users}
-                </ul>
+                </ListGroupItem>
             </div>
         )
     }

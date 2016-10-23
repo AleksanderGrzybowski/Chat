@@ -1,9 +1,11 @@
 import React from 'react';
+import { Panel } from 'react-bootstrap';
 
 const Message = ({from, text}) => (
-    <div>
-        From: {from} text: {text}
-    </div>
+    <Panel>
+        <b>{from}</b>
+        {text}
+    </Panel>
 );
 
 export default Message;

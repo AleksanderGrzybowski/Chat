@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import {FormGroup, InputGroup, FormControl, Button} from 'react-bootstrap';
 
 export default class NewMessage extends Component {
     constructor(props) {
@@ -17,13 +18,34 @@ export default class NewMessage extends Component {
         this.props.sendMessage(this.state.text);
         this.setState({text: ''});
     };
+    
+    onKeypress = (event) => {
+        if (event.key === 'Enter') {
+            this.sendMessage();
+        }
+    };
 
     render() {
         return (
-            <div>
-                New message: <input type="text" value={this.state.text} onChange={this.handleTextChange}/>
-                <button onClick={this.sendMessage}>Send</button>
-            </div>
+            <FormGroup>
+                <InputGroup>
+                    <FormControl
+                        type="text"
+                        placeholder="Your message..."
+                        value={this.state.text}
+                        onChange={this.handleTextChange}
+                        onKeyPress={this.onKeypress}
+                    />
+                    <InputGroup.Button>
+                        <Button
+                            bsStyle="primary"
+                            onClick={this.sendMessage}
+                        >
+                            Send!
+                        </Button>
+                    </InputGroup.Button>
+                </InputGroup>
+            </FormGroup>
         )
     }
 }
