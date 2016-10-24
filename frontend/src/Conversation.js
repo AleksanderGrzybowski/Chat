@@ -11,7 +11,7 @@ export default class Conversation extends Component {
                 <Message
                     key={m.id}
                     from={m.from.username}
-                    to={m.to.username}
+                    avatar={m.from.avatar}
                     text={m.text}
                 />
             );
