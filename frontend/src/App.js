@@ -20,7 +20,28 @@ export default class App extends Component {
                 </Nav>
             </Navbar>
         );
-       
+
+        const rightPanel = (this.props.conversation.currentUserId !== null) ? (
+            <Col md={9}>
+                <Row>
+                    <Col md={12}>
+                        <Conversation messages={this.props.conversation.messages}/>
+                    </Col>
+                </Row>
+                <Row>
+                    <Col md={12}>
+                        <NewMessage sendMessage={this.props.sendMessage}/>
+                    </Col>
+                </Row>
+            </Col>
+        ) : (
+            <Col md={9}>
+                <Row>
+                    <h3 className="text-center">Pick user from the left</h3>
+                </Row>
+            </Col>
+        );
+
         if (this.props.login.loggedIn) {
             return (
                 <Grid>
@@ -34,19 +55,7 @@ export default class App extends Component {
                                 changeSelectedUser={this.props.changeSelectedUser}
                             />
                         </Col>
-                        <Col md={9}>
-                            <Row>
-                                <Col md={12}>
-                                    <Conversation messages={this.props.conversation.messages}/>
-                                </Col>
-                            </Row>
-                            <Row>
-                                <Col md={12}>
-
-                                    <NewMessage sendMessage={this.props.sendMessage}/>
-                                </Col>
-                            </Row>
-                        </Col>
+                        {rightPanel}
                     </Row>
                 </Grid>
             )

@@ -12,7 +12,7 @@ export const login = (state = initialState, action) => {
     }
 };
 
-export const usersList = (state = {users: [], currentUserId: 1}, action) => { // TODO 1?
+export const usersList = (state = {users: [], currentUserId: null}, action) => {
     switch (action.type) {
         case 'LOAD_USERS':
             return Object.assign({}, state, {users: action.users});
@@ -23,7 +23,7 @@ export const usersList = (state = {users: [], currentUserId: 1}, action) => { //
     }
 };
 
-export const conversation = (state = {currentUserId: 1, messages: []}, action) => { // TODO 1?
+export const conversation = (state = {currentUserId: null, messages: []}, action) => {
     switch (action.type) {
         case 'LOAD_CONVERSATION':
             return Object.assign({}, state, {messages: action.messages});

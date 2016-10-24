@@ -5,7 +5,7 @@ export default class Conversation extends Component {
     render() {
         let content;
         if (this.props.messages.length === 0) {
-            content = <div>No messages</div>
+            content = <h3 className="text-center">No messages yet</h3>
         } else {
             content = this.props.messages.map(m =>
                 <Message
