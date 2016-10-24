@@ -3,7 +3,7 @@ package chat
 class Message {
     
     String text
-    Long timestamp
+    Date dateSent
     
     User from
     User to
@@ -15,7 +15,7 @@ class Message {
         return [
                 id: id,
                 text: text,
-                timestamp: timestamp,
+                dateSent: dateSent,
                 from: from.json,
                 to: to.json
         ]

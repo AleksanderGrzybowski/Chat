@@ -14,7 +14,7 @@ class MessageService {
         List<Message> fromMe = Message.findAllByFromAndTo(springSecurityService.currentUser, otherUser)
         List<Message> toMe = Message.findAllByFromAndTo(otherUser, springSecurityService.currentUser)
 
-        return (fromMe + toMe).sort { it.timestamp }
+        return (fromMe + toMe).sort { it.dateSent }
     }
 
     Message create(PostNewMessageDto dto) {
@@ -22,7 +22,7 @@ class MessageService {
                 from: springSecurityService.currentUser,
                 to: User.findById(dto.userId),
                 text: dto.text,
-                timestamp: 1337,
+                dateSent: new Date()
         ).save(failOnError: true)
     }
 }
