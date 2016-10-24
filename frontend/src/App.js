@@ -25,7 +25,10 @@ export default class App extends Component {
             <Col md={9}>
                 <Row>
                     <Col md={12}>
-                        <Conversation messages={this.props.conversation.messages}/>
+                        <Conversation 
+                            messages={this.props.conversation.messages}
+                            refreshCurrentConversation={this.props.refreshCurrentConversation}
+                        />
                     </Col>
                 </Row>
                 <Row>

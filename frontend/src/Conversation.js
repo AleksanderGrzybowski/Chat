@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
 import Message from './Message';
+import {ReactInterval} from 'react-interval';
 
 export default class Conversation extends Component {
     render() {
@@ -20,6 +21,7 @@ export default class Conversation extends Component {
         return (
             <div>
                 {content}
+                <ReactInterval callback={this.props.refreshCurrentConversation} enabled={true} timeout={1000}/>
             </div>
         )
     }

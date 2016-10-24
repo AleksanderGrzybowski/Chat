@@ -49,3 +49,7 @@ export const sendMessage = (text) => (dispatch, getState) => {
         .then(() => dispatch(fetchConversationFor(toUserId)))
         .catch((err) => console.log(err));
 };
+
+export const refreshCurrentConversation = () => (dispatch, getState) => {
+    dispatch(fetchConversationFor(getState().conversation.currentUserId));
+};
