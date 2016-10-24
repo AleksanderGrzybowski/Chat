@@ -13,6 +13,6 @@ class UserService {
     }
 
     List<User> listChatUsers() {
-        return UserRole.findAllByRole(Role.findByAuthority('ROLE_CHAT_USER'))*.user
+        return UserRole.findAllByRole(Role.findByAuthority('ROLE_CHAT_USER'))*.user - springSecurityService.currentUser
     }
 }
