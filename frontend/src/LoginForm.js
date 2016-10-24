@@ -24,6 +24,12 @@ export default class LoginForm extends Component {
     login = () => {
         this.props.onLogin(this.state.username, this.state.password)
     };
+    
+    onKeypress = (e) => {
+        if (e.key === 'Enter') {
+            this.login();
+        }
+    };
 
     render() {
         const buttonDisabled = !this.isFormValid();
@@ -35,7 +41,7 @@ export default class LoginForm extends Component {
         );
 
         return (
-            <Form horizontal>
+            <Form horizontal onKeyPress={this.onKeypress}>
                 <FormGroup controlId="formHorizontalEmail">
                     <FormControl
                         type="text"
