@@ -16,7 +16,7 @@ export default class App extends Component {
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
-                    <NavItem onClick={this.logout}>Logout</NavItem>
+                    <NavItem onClick={this.props.onLogout}>Logout</NavItem>
                 </Nav>
             </Navbar>
         );
