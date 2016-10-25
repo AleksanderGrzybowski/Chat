@@ -12,7 +12,7 @@ export default class Conversation extends Component {
                 <Message
                     key={m.id}
                     from={m.from.username}
-                    avatar={m.from.avatar}
+                    avatarColor={m.from.avatarColor}
                     text={m.text}
                 />
             );

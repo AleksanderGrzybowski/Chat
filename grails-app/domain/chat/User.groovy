@@ -13,7 +13,7 @@ class User implements Serializable {
 
     String username
     String password
-    String avatar // base64 <img> data URI
+    String avatarColor // CSS hex value
     boolean enabled = true
     boolean accountExpired
     boolean accountLocked
@@ -42,10 +42,9 @@ class User implements Serializable {
     static constraints = {
         password blank: false, password: true
         username blank: false, unique: true
-        avatar nullable: true, maxSize: 1000
     }
 
     Map getJson() {
-        [username: username, id: id, avatar: avatar]
+        [username: username, id: id, avatarColor: avatarColor]
     }
 }

@@ -9,7 +9,7 @@ class BootStrap {
         sampleUsersAndMessages()
     }
     
-    static final String DEFAULT_AVATAR = "data:image/png;base64,iVBORw0KGgoAAAANSUhEUgAAACAAAAAgCAYAAABzenr0AAAABHNCSVQICAgIfAhkiAAAAAlwSFlzAAAOxAAADsQBlSsOGwAAAWlJREFUWIXNV8GNhDAMtKOFBvjlx5sO+KcxOqAJGkCiBn4UhITvwWUFrJPYbNCdpTx2Gc+EsR0AiYhAEYgYva6kAyMV9QsAwFoLRHRazjkWmwyKxLquBACUgLHh8/q+j+IwVAJ/B1pLtTxsCXKJHzlCJflwQCIeIpPkXDFGAvJRVVW0uRARxnGMbu4j/9pwksZKrRRH27bv3y+/kaIoohZO0xS8xjkR4iKikwtIRPRN3UMh7QcjScgdRy3RSfhkGKm1TziEiLsD1tqsxJLNbtu2b2LHpxNyNuGR8+97QArU9IAGq3JAQrwsi4Zy53XORY9PzXGsCQAg/E0U25brlczzGO18x/B3uP7PFGjn/Js4ahkAnXVlWYqIU+E13+8DXddFn+NSATUHN2La0QutYRhYntN/IbF5nm8LX1dd18GbY78LnmpIrjTsGGrn+a54cAM+oWmaR8UBmA8TFnSzJBInX0nEhSj35/kPUnxirP6hC4oAAAAASUVORK5CYII="
+    static final String DEFAULT_AVATAR_COLOR = "#abcdef";
     
     static void sampleUsersAndMessages() {
         Role chatUserRole = new Role(authority: 'ROLE_CHAT_USER').save(flush: true)
@@ -38,12 +38,12 @@ class BootStrap {
         
         
         Role adminUserRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-        User admin = new User(username: 'admin', password: 'p4ssw0rd').save(flush: true)
+        User admin = new User(username: 'admin', password: 'p4ssw0rd', avatarColor: DEFAULT_AVATAR_COLOR).save(flush: true)
         new UserRole(user: admin, role: adminUserRole).save(flush: true)
     }
     
     static void createChatUser(String pattern, Role role) {
-        User user = new User(username: pattern, password: pattern, avatar: DEFAULT_AVATAR).save(flush: true)
+        User user = new User(username: pattern, password: pattern, avatarColor: DEFAULT_AVATAR_COLOR).save(flush: true)
         new UserRole(user: user, role: role).save(flush: true)
     }
 }

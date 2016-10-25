@@ -5,10 +5,13 @@ import { connect, Provider } from 'react-redux';
 import thunk from 'redux-thunk';
 import { login, usersList, conversation } from './reducers';
 import { tryLogin, logout, fetchUsers, fetchConversationFor,
-    changeSelectedUser, sendMessage, refreshCurrentConversation
+    changeSelectedUser, sendMessage, refreshCurrentConversation,
+    registerUser
 } from './actions';
 import App from './App';
 import createLogger from 'redux-logger';
+//noinspection ES6UnusedImports
+import * as _ from 'font-awesome-webpack';
 
 const logger = createLogger();
 const store = createStore(combineReducers({login, usersList, conversation}), applyMiddleware(thunk, logger));
@@ -17,6 +20,7 @@ const mapDispatchToProps = (dispatch) => {
     return {
         onLogin: (username, password) => dispatch(tryLogin(username, password)),
         onLogout: () => dispatch(logout()),
+        registerUser: (username, password) => dispatch(registerUser(username, password)),
         fetchUsers: () => dispatch(fetchUsers()),
         changeSelectedUser: (userId) => {
             dispatch(fetchConversationFor(userId));

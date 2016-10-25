@@ -67,7 +67,12 @@ export default class App extends Component {
                 <Row>
                     <Col md={6} mdOffset={3} xs={12}>
                         <h1 className="text-center">OiRPOS chat</h1>
-                        <LoginForm onLogin={this.props.onLogin} loginError={this.props.login.loginError}/>
+                        <LoginForm
+                            onLogin={this.props.onLogin}
+                            registerUser={this.props.registerUser}
+                            loginError={this.props.login.loginError}
+                            registerError={this.props.login.registerError}
+                        />
                     </Col>
                 </Row>
             </Grid>

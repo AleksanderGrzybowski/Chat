@@ -2,6 +2,7 @@ import axios from 'axios';
 import backendUrl from './backendUrl';
 const loginSuccessful = (username, password) => ({type: 'LOGIN_SUCCESSFULL', username, password});
 const loginError = () => ({type: 'LOGIN_ERROR'});
+const registerError = () => ({type: 'REGISTER_ERROR'});
 
 export const tryLogin = (username, password) => (dispatch) => {
     axios.get(`${backendUrl}/api/auth`, {
@@ -9,6 +10,15 @@ export const tryLogin = (username, password) => (dispatch) => {
     })
         .then(() => dispatch(loginSuccessful(username, password)))
         .catch(() => dispatch(loginError()));
+};
+
+
+export const registerUser = (username, password) => (dispatch) => {
+    axios.post(`${backendUrl}/api/user/register`, {
+        username, password
+    })
+        .then(() => dispatch(tryLogin(username, password)))
+        .catch(() => dispatch(registerError()));
 };
 
 const loadUsers = (users) => ({type: 'LOAD_USERS', users});

@@ -1,13 +1,14 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Form, Button, Alert } from 'react-bootstrap';
+import { FormGroup, FormControl, Form, Button, Alert, Image , Row, Col, Grid} from 'react-bootstrap';
 
 export default class LoginForm extends Component {
     constructor(props) {
         super(props);
 
         this.state = {
-            username: 'u1',
-            password: 'u1'
+            username: '',
+            password: '',
+            registerMode: false
         };
     }
 
@@ -25,28 +26,60 @@ export default class LoginForm extends Component {
         this.props.onLogin(this.state.username, this.state.password)
     };
     
+    register = () => {
+        this.props.registerUser(this.state.username, this.state.password)
+    };
+    
+    submitForm = () => {
+        if (this.state.registerMode) {
+            this.register();
+        } else {
+            this.login();
+        }
+    };
+    
+    switchToRegisterMode = () => {
+        this.setState({registerMode: true, username: '', password: ''});
+    };
+    
     onKeypress = (e) => {
         if (e.key === 'Enter') {
-            this.login();
+            this.submitForm();
         }
     };
 
     render() {
         const buttonDisabled = !this.isFormValid();
 
-        const errorMessage = (
+        const loginErrorMessage = (
             <Alert bsStyle="warning">
                 Invalid username or password, please try again.
             </Alert>
         );
-
+        const registerErrorMessage = (
+            <Alert bsStyle="warning">
+                Registration error, please pick different username.
+            </Alert>
+        );
+        
+        const registerButton = this.state.registerMode ? null : (
+            <FormGroup>
+                <Button
+                    block bsSize="large"
+                    onClick={this.switchToRegisterMode}
+                >
+                    Or register...
+                </Button>
+            </FormGroup>
+        );
+        
         return (
             <Form horizontal onKeyPress={this.onKeypress}>
                 <FormGroup controlId="formHorizontalEmail">
                     <FormControl
                         type="text"
                         value={this.state.username}
-                        placeholder="Username"
+                        placeholder={this.state.registerMode ? 'New username' : 'Username'}
                         onChange={this.usernameChange}
                     />
                 </FormGroup>
@@ -55,7 +88,7 @@ export default class LoginForm extends Component {
                     <FormControl
                         type="password"
                         value={this.state.password}
-                        placeholder="Password"
+                        placeholder={this.state.registerMode ? 'New password' : 'Password'}
                         onChange={this.passwordChange}
                     />
                 </FormGroup>
@@ -64,13 +97,15 @@ export default class LoginForm extends Component {
                 <FormGroup>
                     <Button
                         block bsSize="large" bsStyle="primary"
-                        onClick={this.login}
+                        onClick={this.submitForm}
                         disabled={buttonDisabled}
                     >
-                        Login
+                        {this.state.registerMode ? 'Register' : 'Login'}
                     </Button>
                 </FormGroup>
-                {this.props.loginError ? errorMessage : null}
+                {registerButton}
+                {this.props.loginError ? loginErrorMessage : null}
+                {this.props.registerError ? registerErrorMessage : null}
             </Form>
         )
     }

@@ -1,10 +1,18 @@
-const initialStateLogin = {loggedIn: false, loginError: false, username: null, password: null};
+const initialStateLogin = {
+    loggedIn: false,
+    loginError: false,
+    registerError: false,
+    username: null,
+    password: null
+};
 export const login = (state = initialStateLogin, action) => {
     switch (action.type) {
         case 'LOGIN_SUCCESSFULL':
             return {loggedIn: true, loginError: false, username: action.username, password: action.password};
         case 'LOGIN_ERROR':
             return Object.assign({}, state, initialStateLogin, {loginError: true});
+        case 'REGISTER_ERROR':
+            return Object.assign({}, state, initialStateLogin, {registerError: true});
         case 'LOGOUT':
             return initialStateLogin;
         default:

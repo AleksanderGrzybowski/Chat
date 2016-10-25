@@ -12,6 +12,7 @@ export default class UserList extends Component {
             <UserListElement
                 key={user.id}
                 username={user.username}
+                avatarColor={user.avatarColor}
                 active={user.active}
                 selected={user.id === this.props.usersList.currentUserId}
                 changeSelectedUser={this.props.changeSelectedUser.bind(this, user.id)}

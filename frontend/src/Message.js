@@ -1,9 +1,9 @@
 import React from 'react';
 import { Panel } from 'react-bootstrap';
 
-const Message = ({from, avatar, text}) => (
+const Message = ({from, avatarColor, text}) => (
     <Panel>
-        <img alt="avatar" src={avatar}/>
+        <i style={{color: avatarColor}} className="fa fa-user"/>
         <b>{from}</b>
         {text}
     </Panel>
