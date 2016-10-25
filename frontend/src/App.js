@@ -12,11 +12,13 @@ export default class App extends Component {
             <Navbar>
                 <Navbar.Header>
                     <Navbar.Brand>
-                        <a href="#">OiRPOS chat</a>
+                        {this.props.login.username}
                     </Navbar.Brand>
                 </Navbar.Header>
                 <Nav>
-                    <NavItem onClick={this.props.onLogout}>Logout</NavItem>
+                    <NavItem onClick={this.props.onLogout}>
+                        Logout <i className="fa fa-sign-out"/>
+                    </NavItem>
                 </Nav>
             </Navbar>
         );
@@ -66,7 +68,9 @@ export default class App extends Component {
             <Grid>
                 <Row>
                     <Col md={6} mdOffset={3} xs={12}>
-                        <h1 className="text-center">OiRPOS chat</h1>
+                        <h1 className="text-center">
+                            <i className="fa fa-comments"/>  OiRPOS chat
+                        </h1>
                         <LoginForm
                             onLogin={this.props.onLogin}
                             registerUser={this.props.registerUser}

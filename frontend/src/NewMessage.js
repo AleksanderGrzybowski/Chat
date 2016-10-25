@@ -41,7 +41,7 @@ export default class NewMessage extends Component {
                             bsStyle="primary"
                             onClick={this.sendMessage}
                         >
-                            Send!
+                            Send <i className="fa fa-arrow-right"/>
                         </Button>
                     </InputGroup.Button>
                 </InputGroup>

@@ -8,7 +8,7 @@ const UserList = ({selected, username, avatarColor, changeSelectedUser}) => {
             onClick={changeSelectedUser}
             active={selected}
         >
-            <UserIcon color={avatarColor}/>
+            <UserIcon color={avatarColor} style={{marginRight: 10}}/>
             {username}
         </ListGroupItem>
     )

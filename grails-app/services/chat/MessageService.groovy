@@ -3,6 +3,8 @@ package chat
 class MessageService {
 
     def springSecurityService
+    
+    final int MESSAGES_PAGE_LIMIT = 7
 
     List<Message> listAllForUser(Long userId) {
         if (userId == springSecurityService.currentUser.id) {
@@ -14,7 +16,7 @@ class MessageService {
         List<Message> fromMe = Message.findAllByFromAndTo(springSecurityService.currentUser, otherUser)
         List<Message> toMe = Message.findAllByFromAndTo(otherUser, springSecurityService.currentUser)
 
-        return (fromMe + toMe).sort { it.dateSent }
+        return (fromMe + toMe).sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
     }
 
     Message create(PostNewMessageDto dto) {

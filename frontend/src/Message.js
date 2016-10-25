@@ -5,7 +5,7 @@ import UserIcon from './UserIcon';
 const Message = ({from, avatarColor, text}) => (
     <Panel>
         <UserIcon color={avatarColor}/>
-        <b>{from}</b>
+        <span style={{marginLeft: 10, marginRight: 15, fontWeight: 'bold'}}>{from}</span>
         {text}
     </Panel>
 );
