@@ -1,5 +1,6 @@
 import React from 'react';
 import {ListGroupItem} from 'react-bootstrap';
+import UserIcon from './UserIcon';
 
 const UserList = ({selected, username, avatarColor, changeSelectedUser}) => {
     return (
@@ -7,7 +8,7 @@ const UserList = ({selected, username, avatarColor, changeSelectedUser}) => {
             onClick={changeSelectedUser}
             active={selected}
         >
-            <i className="fa fa-user" style={{color: avatarColor}}/>
+            <UserIcon color={avatarColor}/>
             {username}
         </ListGroupItem>
     )
