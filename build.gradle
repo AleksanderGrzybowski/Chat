@@ -1,6 +1,9 @@
 buildscript {
     ext {
         grailsVersion = project.grailsVersion
+
+        frontendDir = 'frontend'
+        publicDir = './src/main/resources/public'
     }
     repositories {
         mavenLocal()
@@ -8,8 +11,8 @@ buildscript {
             url "https://plugins.gradle.org/m2/"
 
         }
-        maven { 
-            url "https://repo.grails.org/grails/core" 
+        maven {
+            url "https://repo.grails.org/grails/core"
         }
     }
     dependencies {
@@ -23,12 +26,12 @@ buildscript {
 version "0.1"
 group "chat"
 
-apply plugin:"eclipse"
-apply plugin:"idea"
-apply plugin:"war"
-apply plugin:"org.grails.grails-web"
-apply plugin:"org.grails.plugins.views-json"
+apply plugin: "idea"
+apply plugin: "war"
+apply plugin: "org.grails.grails-web"
+apply plugin: "org.grails.plugins.views-json"
 apply plugin: "com.moowork.node"
+
 ext {
     grailsVersion = project.grailsVersion
     gradleWrapperVersion = project.gradleWrapperVersion
@@ -53,20 +56,20 @@ node {
 }
 
 task cleanPublic(type: Delete) {
-    delete './src/main/resources/public'
+    delete publicDir
 }
 
 task buildFrontend(type: NpmTask, dependsOn: [cleanPublic, npmInstall]) {
-    workingDir './frontend'
+    workingDir "./${frontendDir}"
     args = ['run', 'build']
 
-    inputs.files file('./frontend')
-    outputs.files file('frontend/build')
+    inputs.files file("./${frontendDir}")
+    outputs.files file("./${frontendDir}/build")
 }
 
 task copyFrontendToPublic(type: Copy, dependsOn: [buildFrontend]) {
-    from "frontend/build"
-    into "./src/main/resources/public"
+    from "./${frontendDir}/build"
+    into publicDir
 }
 
 processResources.dependsOn copyFrontendToPublic
