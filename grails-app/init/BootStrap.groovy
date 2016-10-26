@@ -35,11 +35,6 @@ class BootStrap {
                 from: u1, to: u2, text: 'I am fine too, thanks for caring, u2!',
                 dateSent: new Date(sampleTimestamp - 3600 * 0)
         ).save(flush: true)
-        
-        
-        Role adminUserRole = new Role(authority: 'ROLE_ADMIN').save(flush: true)
-        User admin = new User(username: 'admin', password: 'p4ssw0rd', avatarColor: DEFAULT_AVATAR_COLOR).save(flush: true)
-        new UserRole(user: admin, role: adminUserRole).save(flush: true)
     }
     
     static void createChatUser(String pattern, Role role) {

@@ -1,9 +1,7 @@
 package chat
 
 import grails.converters.JSON
-import grails.plugin.springsecurity.annotation.Secured
 
-@Secured('ROLE_ADMIN')
 class ErrorController  {
     def index() {
         response.status = 500
