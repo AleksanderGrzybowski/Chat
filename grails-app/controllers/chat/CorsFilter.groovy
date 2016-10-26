@@ -10,8 +10,7 @@ import javax.servlet.http.HttpServletRequest
 import javax.servlet.http.HttpServletResponse
 
 /**
- * I have no idea why both grails cors plugin and this code is required 
- * for basic-auth OPTIONS requests to protected routes to work.
+ * I'm not sure if this is entirely correct from browser point of view.
  */
 @Order(Ordered.HIGHEST_PRECEDENCE)
 public class CorsFilter extends OncePerRequestFilter {
@@ -20,20 +19,12 @@ public class CorsFilter extends OncePerRequestFilter {
     protected void doFilterInternal(HttpServletRequest req, HttpServletResponse resp, FilterChain chain)
             throws ServletException, IOException {
 
-        String origin = req.getHeader("Origin")
-        boolean options = "OPTIONS" == req.method
-        
-        if (options) {
-            if (origin == null) return
-            resp.addHeader("Access-Control-Allow-Headers", "origin, authorization, accept, content-type, x-requested-with")
-            resp.addHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS")
-            resp.addHeader("Access-Control-Max-Age", "3600")
+        resp.addHeader("Access-Control-Allow-Headers", "origin, authorization, accept, content-type, x-requested-with")
+        resp.addHeader("Access-Control-Allow-Methods", "GET, HEAD, POST, PUT, DELETE, TRACE, OPTIONS")
+        resp.addHeader("Access-Control-Max-Age", "3600")
+        resp.addHeader("Access-Control-Allow-Origin", "*")
+        resp.addHeader("Access-Control-Allow-Credentials", "true")
 
-            resp.addHeader("Access-Control-Allow-Origin", origin == null ? "*" : origin)
-            resp.addHeader("Access-Control-Allow-Credentials", "true")
-        }
-
-
-        if (!options) chain.doFilter(req, resp)
+        if (req.method != "OPTIONS") chain.doFilter(req, resp)
     }
 }
