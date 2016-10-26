@@ -12,8 +12,6 @@ class UrlMappings {
        
         "/guest/public"(controller: 'user', action: 'guest')
 
-        "/api/admin/evaluate"(controller: 'admin', action: 'evaluate', method: 'post')
-        
         "/"(redirect: "/index.html")
         "500"(controller: 'error')
         "404"(view: '/notFound')
