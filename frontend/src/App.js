@@ -1,8 +1,8 @@
 import React, { Component } from 'react';
-import LoginForm from './LoginForm';
-import UserList from './UserList';
-import Conversation from './Conversation';
-import NewMessage from './NewMessage';
+import LoginForm from './chat/LoginForm';
+import UserList from './chat/UserList';
+import Conversation from './chat/Conversation';
+import NewMessage from './chat/NewMessage';
 import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
 import 'bootstrap/dist/css/bootstrap.css';
 

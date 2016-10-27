@@ -9,7 +9,7 @@ const UserList = ({selected, username, avatarColor, changeSelectedUser}) => {
             active={selected}
         >
             <UserIcon color={avatarColor} style={{marginRight: 10}}/>
-            {username}
+            <span>{username}</span>
         </ListGroupItem>
     )
 };

@@ -4,7 +4,7 @@ const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', userna
 const loginError = () => ({type: 'LOGIN_ERROR'});
 const registerError = () => ({type: 'REGISTER_ERROR'});
 
-export const tryLogin = (username, password) => (dispatch) => {
+export const login = (username, password) => (dispatch) => {
     axios.post(`${backendUrl}/api/login`, {
         username, password
     })
@@ -17,7 +17,7 @@ export const registerUser = (username, password) => (dispatch) => {
     axios.post(`${backendUrl}/api/guest/register`, {
         username, password
     })
-        .then(() => dispatch(tryLogin(username, password)))
+        .then(() => dispatch(login(username, password)))
         .catch(() => dispatch(registerError()));
 };
 

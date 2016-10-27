@@ -1,5 +1,5 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Form, Button, Alert, Image , Row, Col, Grid} from 'react-bootstrap';
+import { FormGroup, FormControl, Form, Button, Alert } from 'react-bootstrap';
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -12,36 +12,16 @@ export default class LoginForm extends Component {
         };
     }
 
-    usernameChange = (e) => {
-        this.setState({username: e.target.value})
-    };
-
-    passwordChange = (e) => {
-        this.setState({password: e.target.value})
-    };
-
+    usernameChange = (e) => this.setState({username: e.target.value});
+    passwordChange = (e) => this.setState({password: e.target.value});
     isFormValid = () => this.state.username.length !== 0 && this.state.password.length !== 0;
 
-    login = () => {
-        this.props.onLogin(this.state.username, this.state.password)
-    };
-    
-    register = () => {
-        this.props.registerUser(this.state.username, this.state.password)
-    };
-    
-    submitForm = () => {
-        if (this.state.registerMode) {
-            this.register();
-        } else {
-            this.login();
-        }
-    };
-    
-    switchToRegisterMode = () => {
-        this.setState({registerMode: true, username: '', password: ''});
-    };
-    
+    login = () => this.props.onLogin(this.state.username, this.state.password);
+    register = () => this.props.registerUser(this.state.username, this.state.password);
+    submitForm = () => this.state.registerMode ? this.register() : this.login();
+
+    switchToRegisterMode = () => this.setState({registerMode: true, username: '', password: ''});
+
     onKeypress = (e) => {
         if (e.key === 'Enter') {
             this.submitForm();
@@ -61,7 +41,7 @@ export default class LoginForm extends Component {
                 Registration error, please pick different username.
             </Alert>
         );
-        
+
         const registerButton = this.state.registerMode ? null : (
             <FormGroup>
                 <Button
@@ -72,7 +52,7 @@ export default class LoginForm extends Component {
                 </Button>
             </FormGroup>
         );
-        
+
         return (
             <Form horizontal onKeyPress={this.onKeypress}>
                 <FormGroup controlId="formHorizontalEmail">

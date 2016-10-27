@@ -10,9 +10,7 @@ export default class NewMessage extends Component {
         }
     }
 
-    handleTextChange = (e) => {
-        this.setState({text: e.target.value});
-    };
+    handleTextChange = (e) => this.setState({text: e.target.value}); 
 
     sendMessage = () => {
         if (this.state.text.length === 0) return;
