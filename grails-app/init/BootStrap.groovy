@@ -5,12 +5,12 @@ import chat.UserRole
 class BootStrap {
 
     def init = { servletContext ->
-        sampleUsersAndMessages()
+        sampleUsers()
     }
 
     static final String DEFAULT_AVATAR_COLOR = "#abcdef";
 
-    static void sampleUsersAndMessages() {
+    static void sampleUsers() {
         Role chatUserRole = new Role(authority: 'ROLE_CHAT_USER').save(flush: true)
 
         ['bob', 'alice'].each {

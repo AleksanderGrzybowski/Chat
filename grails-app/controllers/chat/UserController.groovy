@@ -12,16 +12,10 @@ class UserController {
         User created = userService.create(dto)
         render(created.json as JSON)
     }
-    
 
     @Secured('ROLE_CHAT_USER')
     def listChatUsers() {
         render([chatUsers: userService.listChatUsers()*.json] as JSON)
-    }
-
-    @Secured('isAnonymous()')
-    def guest() {
-        render 'You have guest information'
     }
 }
 
