@@ -1,5 +1,6 @@
 import React, { Component } from 'react';
-import { FormGroup, FormControl, Form, Button, Alert } from 'react-bootstrap';
+import { FormGroup, FormControl, Form, Button } from 'react-bootstrap';
+import ErrorAlert from './ErrorAlert';
 
 export default class LoginForm extends Component {
     constructor(props) {
@@ -32,14 +33,14 @@ export default class LoginForm extends Component {
         const buttonDisabled = !this.isFormValid();
 
         const loginErrorMessage = (
-            <Alert bsStyle="warning">
+            <ErrorAlert>
                 Invalid username or password, please try again.
-            </Alert>
+            </ErrorAlert>
         );
         const registerErrorMessage = (
-            <Alert bsStyle="warning">
+            <ErrorAlert>
                 Registration error, please pick different username.
-            </Alert>
+            </ErrorAlert>
         );
 
         const registerButton = this.state.registerMode ? null : (
