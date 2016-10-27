@@ -1,5 +1,7 @@
 import org.apache.commons.lang3.RandomStringUtils
 
+grails.databinding.convertEmptyStringsToNull = false
+
 // Added by the Spring Security Core plugin:
 grails.plugin.springsecurity.userLookup.userDomainClassName = 'chat.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'chat.UserRole'
