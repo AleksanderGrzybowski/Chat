@@ -15,6 +15,8 @@ export default class NewMessage extends Component {
     };
 
     sendMessage = () => {
+        if (this.state.text.length === 0) return;
+        
         this.props.sendMessage(this.state.text);
         this.setState({text: ''});
     };
