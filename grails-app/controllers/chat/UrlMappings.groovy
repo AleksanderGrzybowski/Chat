@@ -3,9 +3,9 @@ package chat
 class UrlMappings {
 
     static mappings = {
-        "/api/auth"(controller: 'user', action: 'auth')
+        "/api/guest/register"(controller: 'user', action: 'register')
+        
         "/api/user/chatUsers"(controller: 'user', action: 'listChatUsers')
-        "/api/user/register"(controller: 'user', action: 'register')
 
         "/api/message/listAll"(controller: 'message', action: 'listAll')
         "/api/message/create"(controller: 'message', action: 'create')

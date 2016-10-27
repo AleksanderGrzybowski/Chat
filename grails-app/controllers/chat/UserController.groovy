@@ -7,12 +7,6 @@ class UserController {
 
     def userService
 
-    @Secured('IS_AUTHENTICATED_FULLY')
-    def auth() {
-        User current = userService.currentUser()
-        render([youAre: current.json] as JSON)
-    }
-
     @Secured('isAnonymous()')
     def register(RegisterUserDto dto) {
         User created = userService.create(dto)

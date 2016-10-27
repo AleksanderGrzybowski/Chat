@@ -95,4 +95,5 @@ dependencies {
     profile "org.grails.profiles:rest-api"
     runtime "com.h2database:h2"
     compile 'org.grails.plugins:spring-security-core:3.1.1'
+    compile "org.grails.plugins:spring-security-rest:2.0.0.M2"
 }

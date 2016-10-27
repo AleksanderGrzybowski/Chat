@@ -4,14 +4,6 @@ class UserService {
 
     def springSecurityService
 
-    User currentUser() {
-        User current = springSecurityService.currentUser
-        if (!current) {
-            throw new AssertionError('This method should be called only in authorized context')
-        }
-        return current
-    }
-
     User create(RegisterUserDto dto) {
         User created = new User(
                 username: dto.username,
