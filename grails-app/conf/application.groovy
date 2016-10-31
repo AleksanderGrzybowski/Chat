@@ -7,7 +7,8 @@ grails.plugin.springsecurity.userLookup.userDomainClassName = 'chat.User'
 grails.plugin.springsecurity.userLookup.authorityJoinClassName = 'chat.UserRole'
 grails.plugin.springsecurity.authority.className = 'chat.Role'
 grails.plugin.springsecurity.controllerAnnotations.staticRules = [
-        [pattern: '/', access: ['permitAll']]
+        [pattern: '/index.html', access: ['permitAll']],
+        [pattern: '/static/**/**', access: ['permitAll']]
 ]
 
 grails.plugin.springsecurity.filterChain.chainMap = [

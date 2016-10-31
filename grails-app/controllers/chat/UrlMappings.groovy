@@ -9,8 +9,6 @@ class UrlMappings {
 
         "/api/message/listAll"(controller: 'message', action: 'listAll')
         "/api/message/create"(controller: 'message', action: 'create')
-       
-        "/guest/public"(controller: 'user', action: 'guest')
 
         "/"(redirect: "/index.html")
         "500"(controller: 'error')
