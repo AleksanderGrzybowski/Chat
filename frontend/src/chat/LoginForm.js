@@ -9,13 +9,24 @@ export default class LoginForm extends Component {
         this.state = {
             username: '',
             password: '',
+            repeatPassword: '',
             registerMode: false
         };
     }
 
     usernameChange = (e) => this.setState({username: e.target.value});
     passwordChange = (e) => this.setState({password: e.target.value});
-    isFormValid = () => this.state.username.length !== 0 && this.state.password.length !== 0;
+    repeatPasswordChange = (e) => this.setState({repeatPassword: e.target.value});
+    isFormValid = () => {
+        const allNotEmpty = (values) => values.every(e => e.length > 0); // FP rocks!
+        
+        if (this.state.registerMode) {
+            return allNotEmpty([this.state.username, this.state.password, this.state.repeatPassword])
+                && (this.state.password === this.state.repeatPassword);
+        } else {
+            return allNotEmpty([this.state.username, this.state.password]);
+        }
+    };
 
     login = () => this.props.onLogin(this.state.username, this.state.password);
     register = () => this.props.registerUser(this.state.username, this.state.password);
@@ -29,7 +40,7 @@ export default class LoginForm extends Component {
         }
     };
 
-    switchToRegisterMode = () => this.setState({registerMode: true, username: '', password: ''});
+    switchToRegisterMode = () => this.setState({registerMode: true, username: '', password: '', repeatPassword: ''});
 
     onKeypress = (e) => {
         if (e.key === 'Enter') {
@@ -61,6 +72,17 @@ export default class LoginForm extends Component {
                 </Button>
             </FormGroup>
         );
+        
+        const repeatPasswordInput = this.state.registerMode ? (
+            <FormGroup>
+                <FormControl
+                    type="password"
+                    value={this.state.repeatPassword}
+                    placeholder="Repeat password"
+                    onChange={this.repeatPasswordChange}
+                />
+            </FormGroup>
+        ) : null;
 
         return (
             <Form horizontal onKeyPress={this.onKeypress}>
@@ -81,7 +103,7 @@ export default class LoginForm extends Component {
                         onChange={this.passwordChange}
                     />
                 </FormGroup>
-
+                {repeatPasswordInput}
 
                 <FormGroup>
                     <Button
