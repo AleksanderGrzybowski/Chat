@@ -19,7 +19,15 @@ export default class LoginForm extends Component {
 
     login = () => this.props.onLogin(this.state.username, this.state.password);
     register = () => this.props.registerUser(this.state.username, this.state.password);
-    submitForm = () => this.state.registerMode ? this.register() : this.login();
+    submitForm = () => {
+        if (!this.isFormValid()) return;
+        
+        if (this.state.registerMode) {
+            this.register();
+        } else {
+            this.login();
+        }
+    };
 
     switchToRegisterMode = () => this.setState({registerMode: true, username: '', password: ''});
 
