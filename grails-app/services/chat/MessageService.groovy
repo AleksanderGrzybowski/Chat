@@ -15,16 +15,22 @@ class MessageService {
 
         List<Message> fromMe = Message.findAllByFromAndTo(springSecurityService.currentUser, otherUser)
         List<Message> toMe = Message.findAllByFromAndTo(otherUser, springSecurityService.currentUser)
+        
+        log.info("Listing messages for ${otherUser.username}")
 
         return (fromMe + toMe).sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
     }
 
     Message create(PostNewMessageDto dto) {
-        return new Message(
+        Message message = new Message(
                 from: springSecurityService.currentUser,
                 to: User.findById(dto.userId),
                 text: dto.text,
                 dateSent: new Date()
         ).save(failOnError: true)
+        
+        log.info("Created message ${message.json}")
+        
+        return message
     }
 }

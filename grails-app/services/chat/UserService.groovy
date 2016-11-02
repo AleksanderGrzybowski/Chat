@@ -11,6 +11,9 @@ class UserService {
                 avatarColor: randomColor()
         ).save(failOnError: true)
         new UserRole(user: created, role: Role.findByAuthority('ROLE_CHAT_USER')).save(failOnError: true)
+        
+        log.info("Created user ${created.json}")
+        
         return created
     }
 
