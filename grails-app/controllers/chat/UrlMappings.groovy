@@ -10,7 +10,7 @@ class UrlMappings {
         "/api/message/listAll"(controller: 'message', action: 'listAll')
         "/api/message/create"(controller: 'message', action: 'create')
 
-        "/"(redirect: "/index.html")
+        "/"(controller: 'index', action: 'redirectToIndexHtml')
         "500"(controller: 'error')
         "404"(view: '/notFound')
     }
