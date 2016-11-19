@@ -9,4 +9,4 @@ RUN sed -i s/localhost/vps275760.ovh.net/g frontend/src/backendUrl.js
 
 
 EXPOSE 8080
-CMD ./gradlew bootRun
+CMD ./gradlew -Dgrails.env=prod bootRun
