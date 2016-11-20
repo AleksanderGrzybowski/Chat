@@ -1,9 +1,6 @@
 buildscript {
     ext {
         grailsVersion = project.grailsVersion
-
-        frontendDir = 'frontend'
-        publicDir = './src/main/resources/public'
     }
     repositories {
         mavenLocal()
@@ -19,7 +16,6 @@ buildscript {
         classpath "org.grails:grails-gradle-plugin:$grailsVersion"
         classpath "org.grails.plugins:hibernate4:5.0.10"
         classpath "org.grails.plugins:views-gradle:1.0.12"
-        classpath "com.moowork.gradle:gradle-node-plugin:0.11" // version 13 does not work
     }
 }
 
@@ -29,7 +25,6 @@ group "chat"
 apply plugin: "idea"
 apply plugin: "war"
 apply plugin: "org.grails.grails-web"
-apply plugin: "com.moowork.node"
 
 ext {
     grailsVersion = project.grailsVersion
@@ -47,31 +42,6 @@ dependencyManagement {
     }
     applyMavenExclusions false
 }
-
-node {
-    version = '6.4.0'
-    download = true
-    nodeModulesDir = file("${project.projectDir}/frontend")
-}
-
-task cleanPublic(type: Delete) {
-    delete publicDir
-}
-
-task buildFrontend(type: NpmTask, dependsOn: [cleanPublic, npmInstall]) {
-    workingDir "./${frontendDir}"
-    args = ['run', 'build']
-
-    inputs.files file("./${frontendDir}")
-    outputs.files file("./${frontendDir}/build")
-}
-
-task copyFrontendToPublic(type: Copy, dependsOn: [buildFrontend]) {
-    from "./${frontendDir}/build"
-    into publicDir
-}
-
-processResources.dependsOn copyFrontendToPublic
 
 dependencies {
     compile "org.springframework.boot:spring-boot-starter-logging"

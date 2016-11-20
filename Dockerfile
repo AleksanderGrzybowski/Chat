@@ -1,12 +1,12 @@
-# I am still not sure if one should build image
-# inside or outside of container.
-# This way it is at least somewhat repeatable.
 FROM java:8
+
+ENV PORT 8080
 
 COPY . /Chat
 WORKDIR /Chat
-RUN sed -i s/localhost/vps275760.ovh.net/g frontend/src/backendUrl.js
 
+RUN ./gradlew bootRepackage && cp build/libs/Chat-0.1.war / && rm -rf /Chat
 
-EXPOSE 8080
-CMD ./gradlew -Dgrails.env=prod bootRun
+WORKDIR /
+
+CMD java -Dserver.port=$PORT -jar Chat-0.1.war
