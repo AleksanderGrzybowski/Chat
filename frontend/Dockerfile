@@ -12,8 +12,7 @@ RUN apt-get update && \
     npm install && npm run build && \
     cp -r build/* /usr/local/apache2/htdocs && \
     cp run.sh / && \
-    rm -rf /frontend && \
-    apt-get remove --purge -y curl nodejs $(apt-mark showauto)
+    rm -rf /frontend
 
 WORKDIR /
-CMD run.sh
+CMD ./run.sh
