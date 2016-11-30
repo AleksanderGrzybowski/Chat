@@ -3,34 +3,59 @@ package chat
 class MessageService {
 
     def springSecurityService
-    
+
     final int MESSAGES_PAGE_LIMIT = 7
 
-    List<Message> listAllForUser(Long userId) {
-        if (userId == springSecurityService.currentUser.id) {
-            throw new RuntimeException('Cannot list messages for current user')
+    List<Message> listAll(ListAllMessagesDto dto) {
+        List<Message> messages
+
+        if (dto.type == MessageType.DIRECT) {
+            if (dto.conversationId == springSecurityService.currentUser.id) {
+                throw new RuntimeException('Cannot list messages for current user')
+            }
+
+            User otherUser = User.findById(dto.conversationId)
+
+            List<Message> fromMe = DirectMessage.findAllByFromAndTo(springSecurityService.currentUser, otherUser)
+            List<Message> toMe = DirectMessage.findAllByFromAndTo(otherUser, springSecurityService.currentUser)
+
+            log.info("Listing messages for ${otherUser.username}")
+
+            messages = fromMe + toMe
+        } else if (dto.type == MessageType.CHANNEL) {
+            Channel channel = Channel.findById(dto.conversationId)
+            log.info("Listing messages for channel ${channel.name}")
+
+            messages = ChannelMessage.findAllByTo(channel).sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
+        } else {
+            throw new AssertionError()
         }
 
-        User otherUser = User.findById(userId)
-
-        List<Message> fromMe = Message.findAllByFromAndTo(springSecurityService.currentUser, otherUser)
-        List<Message> toMe = Message.findAllByFromAndTo(otherUser, springSecurityService.currentUser)
-        
-        log.info("Listing messages for ${otherUser.username}")
-
-        return (fromMe + toMe).sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
+        return messages.sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
     }
 
     Message create(PostNewMessageDto dto) {
-        Message message = new Message(
-                from: springSecurityService.currentUser,
-                to: User.findById(dto.userId),
-                text: dto.text,
-                dateSent: new Date()
-        ).save(failOnError: true)
-        
-        log.info("Created message ${message.json}")
-        
-        return message
+        Message created
+
+        if (dto.type == MessageType.DIRECT) {
+            created = new DirectMessage(
+                    from: springSecurityService.currentUser,
+                    to: User.findById(dto.conversationId),
+                    text: dto.text,
+                    dateSent: new Date()
+            ).save(failOnError: true)
+        } else if (dto.type == MessageType.CHANNEL) {
+            created = new ChannelMessage(
+                    from: springSecurityService.currentUser,
+                    to: Channel.findById(dto.conversationId),
+                    text: dto.text,
+                    dateSent: new Date()
+            ).save(failOnError: true)
+        } else {
+            throw new AssertionError()
+        }
+
+        log.info("Created message ${created.json}")
+        return created
     }
 }

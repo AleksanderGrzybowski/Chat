@@ -9,7 +9,7 @@ class MessageController {
     def messageService
 
     def listAll(ListAllMessagesDto dto) {
-        render(messageService.listAllForUser(dto.userId)*.json as JSON)
+        render(messageService.listAll(dto)*.json as JSON)
     }
 
     def create(PostNewMessageDto dto) {
@@ -18,12 +18,17 @@ class MessageController {
     }
 }
 
-class PostNewMessageDto {
-    Long userId
-    String text
+
+class MessageDto {
+    MessageType type
+
+    /** Means either message id or channel id */
+    Long conversationId
 }
 
-class ListAllMessagesDto {
-    Long userId
+class ListAllMessagesDto extends MessageDto {}
+
+class PostNewMessageDto extends MessageDto {
+    String text
 }
 
