@@ -1,4 +1,5 @@
 import React, { Component } from 'react';
+import ReactDOM from 'react-dom';
 import { FormGroup, FormControl, Form, Button } from 'react-bootstrap';
 import ErrorAlert from './ErrorAlert';
 
@@ -48,6 +49,10 @@ export default class LoginForm extends Component {
         }
     };
 
+    componentDidMount() {
+        ReactDOM.findDOMNode(this.refs.loginInput).focus();
+    }
+
     render() {
         const buttonDisabled = !this.isFormValid();
 
@@ -86,16 +91,17 @@ export default class LoginForm extends Component {
 
         return (
             <Form horizontal onKeyPress={this.onKeypress}>
-                <FormGroup controlId="formHorizontalEmail">
+                <FormGroup>
                     <FormControl
                         type="text"
+                        ref="loginInput"
                         value={this.state.username}
                         placeholder={this.state.registerMode ? 'New username' : 'Username'}
                         onChange={this.usernameChange}
                     />
                 </FormGroup>
 
-                <FormGroup controlId="formHorizontalEmail">
+                <FormGroup>
                     <FormControl
                         type="password"
                         value={this.state.password}
