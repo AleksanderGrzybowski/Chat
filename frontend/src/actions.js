@@ -61,14 +61,15 @@ export const changeSelectedConversation = (conversationType, conversationId) => 
 });
 
 export const sendMessage = (text) => (dispatch, getState) => {
-    const {type, conversationId} = getState().conversation;
+    const {currentId, currentType} = getState().conversationsList;
     
-    axios.post(`${backendUrl}/api/message/create`, {conversationId, type, text}, authConfig(getState().login.token))
-        .then(() => dispatch(fetchConversation(type, conversationId)))
+    axios.post(`${backendUrl}/api/message/create`, {conversationId: currentId, type: currentType, text}, authConfig(getState().login.token))
+        .then(() => dispatch(fetchConversation(currentType, currentId)))
         .catch((err) => console.log(err));
 };
 
 export const refreshCurrentConversation = () => (dispatch, getState) => {
-    const {type, conversationId} = getState().conversation;
-    dispatch(fetchConversation(type, conversationId));
+    const {currentId, currentType} = getState().conversationsList;
+    
+    dispatch(fetchConversation(currentType, currentId));
 };

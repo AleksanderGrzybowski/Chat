@@ -1,6 +1,6 @@
 import React from 'react';
 import { Panel } from 'react-bootstrap';
-import UserIcon from './UserIcon';
+import {UserIcon} from './Icons';
 
 const Message = ({from, avatarColor, text}) => (
     <Panel>

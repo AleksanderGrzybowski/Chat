@@ -20,7 +20,7 @@ export default class Conversation extends Component {
         return (
             <div>
                 {content}
-                <ReactInterval callback={this.props.refreshCurrentConversation} enabled={true} timeout={10000}/>
+                <ReactInterval callback={this.props.refreshCurrentConversation} enabled={true} timeout={1000}/>
             </div>
         )
     }

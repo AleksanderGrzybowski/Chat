@@ -9,26 +9,32 @@ export default class ConversationsList extends Component {
     }
 
     render() {
+        const isSelected = (id, type) => (
+            id === this.props.conversationsList.currentId && this.props.conversationsList.currentType === type
+        );
+
         const users = this.props.conversationsList.users.map(user =>
             <ConversationListElement
                 key={user.id}
                 conversationName={user.username}
                 type="DIRECT"
-                avatarColor={user.avatarColor}
-                selected={user.id === this.props.conversationsList.currentConversationId && this.props.conversationsList.currentConversationType === 'DIRECT'}
+                iconColor={user.avatarColor}
+                selected={isSelected(user.id, 'DIRECT')}
                 changeSelectedConversation={this.props.changeSelectedConversation.bind(this, 'DIRECT', user.id)}
             />
         );
-        
+
         const channels = this.props.conversationsList.channels.map(channel =>
             <ConversationListElement
                 key={channel.id}
                 conversationName={channel.name}
                 type="CHANNEL"
-                selected={channel.id === this.props.conversationsList.currentConversationId && this.props.conversationsList.currentConversationType === 'CHANNEL'}
+                iconColor="#fecdba"
+                selected={isSelected(channel.id, 'CHANNEL')}
                 changeSelectedConversation={this.props.changeSelectedConversation.bind(this, 'CHANNEL', channel.id)}
             />
         );
+
         return (
             <div>
                 <ListGroupItem>

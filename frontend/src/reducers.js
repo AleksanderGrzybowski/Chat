@@ -21,8 +21,8 @@ export const login = (state = initialStateLogin, action) => {
 };
 
 const initialStateConversationsList = {
-    currentConversationId: null,
-    currentConversationType: null,
+    currentId: null,
+    currentType: null,
     users: [],
     channels: []
 };
@@ -34,8 +34,8 @@ export const conversationsList = (state = initialStateConversationsList, action)
             return Object.assign({}, state, {channels: action.channels});
         case 'CHANGE_SELECTED_CONVERSATION':
             return Object.assign({}, state, {
-                currentConversationType: action.conversationType,
-                currentConversationId: action.conversationId,
+                currentType: action.conversationType,
+                currentId: action.conversationId,
             });
         case 'LOGOUT':
             return initialStateConversationsList;
@@ -44,13 +44,13 @@ export const conversationsList = (state = initialStateConversationsList, action)
     }
 };
 
-const initialStateConversation = {conversationId: null, type: null, messages: []};
+const initialStateConversation = { messages: []};
 export const conversation = (state = initialStateConversation, action) => {
     switch (action.type) {
         case 'LOAD_CONVERSATION':
             return Object.assign({}, state, {messages: action.messages});
-        case 'CHANGE_SELECTED_CONVERSATION':
-            return Object.assign({}, state, {type: action.conversationType, conversationId: action.conversationId});
+        // case 'CHANGE_SELECTED_CONVERSATION':
+        //     return Object.assign({}, state, {type: action.conversationType, conversationId: action.conversationId});
         case 'LOGOUT':
             return initialStateConversation;
         default:

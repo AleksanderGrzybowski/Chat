@@ -1,14 +1,15 @@
 import React from 'react';
-import {ListGroupItem} from 'react-bootstrap';
-import UserIcon from './UserIcon';
+import { ListGroupItem } from 'react-bootstrap';
+import { UserIcon, ChannelIcon } from './Icons';
 
-const ConversationListElement = ({selected, type, conversationName, avatarColor, changeSelectedConversation}) => {
-    const icon = (type === 'DIRECT') ? (
-        <UserIcon color={avatarColor} style={{marginRight: 10}}/>
-    ) : (
-        <span>channel icon</span>
-    );
-    
+const ConversationListElement = ({selected, type, conversationName, iconColor, changeSelectedConversation}) => {
+    const iconProps = {
+        style: {marginRight: 10},
+        color: iconColor
+    };
+
+    const icon = (type === 'DIRECT') ? <UserIcon {...iconProps}/> : <ChannelIcon {...iconProps}/>;
+
     return (
         <ListGroupItem
             onClick={changeSelectedConversation}
