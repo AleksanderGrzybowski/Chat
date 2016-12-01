@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import LoginForm from './chat/LoginForm';
-import UserList from './chat/UserList';
+import ConversationsList from './chat/ConversationsList';
 import Conversation from './chat/Conversation';
 import NewMessage from './chat/NewMessage';
 import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
@@ -23,7 +23,7 @@ export default class App extends Component {
             </Navbar>
         );
 
-        const rightPanel = (this.props.conversation.currentUserId !== null) ? (
+        const rightPanel = (this.props.conversation.conversationId !== null) ? ( // TODO
             <Col md={9}>
                 <Row>
                     <Col md={12}>
@@ -53,11 +53,11 @@ export default class App extends Component {
                     {navbar}
                     <Row>
                         <Col md={3}>
-                            <UserList
+                            <ConversationsList
                                 fetchUsers={this.props.fetchUsers}
-                                usersList={this.props.usersList}
-                                currentUserId={this.props.conversation.currentUserId}
-                                changeSelectedUser={this.props.changeSelectedUser}
+                                fetchChannels={this.props.fetchChannels}
+                                conversationsList={this.props.conversationsList}
+                                changeSelectedConversation={this.props.changeSelectedConversation}
                             />
                         </Col>
                         {rightPanel}

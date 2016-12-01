@@ -1,5 +1,6 @@
 import axios from 'axios';
 import backendUrl from './backendUrl';
+
 const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', username, token});
 const loginError = () => ({type: 'LOGIN_ERROR'});
 const registerError = () => ({type: 'REGISTER_ERROR'});
@@ -22,6 +23,7 @@ export const registerUser = (username, password) => (dispatch) => {
 };
 
 const loadUsers = (users) => ({type: 'LOAD_USERS', users});
+const loadChannels = (channels) => ({type: 'LOAD_CHANNELS', channels});
 
 const authConfig = (token) => ({
     headers: {
@@ -35,27 +37,38 @@ export const fetchUsers = () => (dispatch, getState) => {
         .catch((err) => console.log(err));
 };
 
+export const fetchChannels = () => (dispatch, getState) => {
+    axios.get(`${backendUrl}/api/channel/list`, authConfig(getState().login.token))
+        .then(({data}) => dispatch(loadChannels(data)))
+        .catch((err) => console.log(err));
+};
+
 export const logout = () => ({type: 'LOGOUT'});
 
 const loadConversation = (messages) => ({type: 'LOAD_CONVERSATION', messages});
 
-export const fetchConversationFor = (userId) => (dispatch, getState) => {
+export const fetchConversation = (type, conversationId) => (dispatch, getState) => {
 
-    axios.get(`${backendUrl}/api/message/listAll?userId=${userId}`, authConfig(getState().login.token))
+    axios.get(`${backendUrl}/api/message/listAll?conversationId=${conversationId}&type=${type}`, authConfig(getState().login.token))
         .then(({data}) => dispatch(loadConversation(data)))
         .catch((err) => console.log(err));
 };
 
-export const changeSelectedUser = (userId) => ({type: 'CHANGE_SELECTED_USER', userId});
+export const changeSelectedConversation = (conversationType, conversationId) => ({
+    type: 'CHANGE_SELECTED_CONVERSATION',
+    conversationId,
+    conversationType
+});
 
 export const sendMessage = (text) => (dispatch, getState) => {
-    const toUserId = getState().conversation.currentUserId;
-
-    axios.post(`${backendUrl}/api/message/create`, {userId: toUserId, text}, authConfig(getState().login.token))
-        .then(() => dispatch(fetchConversationFor(toUserId)))
+    const {type, conversationId} = getState().conversation;
+    
+    axios.post(`${backendUrl}/api/message/create`, {conversationId, type, text}, authConfig(getState().login.token))
+        .then(() => dispatch(fetchConversation(type, conversationId)))
         .catch((err) => console.log(err));
 };
 
 export const refreshCurrentConversation = () => (dispatch, getState) => {
-    dispatch(fetchConversationFor(getState().conversation.currentUserId));
+    const {type, conversationId} = getState().conversation;
+    dispatch(fetchConversation(type, conversationId));
 };

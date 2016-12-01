@@ -20,30 +20,40 @@ export const login = (state = initialStateLogin, action) => {
     }
 };
 
-const initialStateUsersList = {currentUserId: null, users: []};
-export const usersList = (state = initialStateUsersList, action) => {
+const initialStateConversationsList = {
+    currentConversationId: null,
+    currentConversationType: null,
+    users: [],
+    channels: []
+};
+export const conversationsList = (state = initialStateConversationsList, action) => {
     switch (action.type) {
         case 'LOAD_USERS':
             return Object.assign({}, state, {users: action.users});
-        case 'CHANGE_SELECTED_USER':
-            return Object.assign({}, state, {currentUserId: action.userId});
+        case 'LOAD_CHANNELS':
+            return Object.assign({}, state, {channels: action.channels});
+        case 'CHANGE_SELECTED_CONVERSATION':
+            return Object.assign({}, state, {
+                currentConversationType: action.conversationType,
+                currentConversationId: action.conversationId,
+            });
         case 'LOGOUT':
-            return initialStateUsersList;
+            return initialStateConversationsList;
         default:
-            return state
+            return state;
     }
 };
 
-const initialStateConversation = {currentUserId: null, messages: []};
+const initialStateConversation = {conversationId: null, type: null, messages: []};
 export const conversation = (state = initialStateConversation, action) => {
     switch (action.type) {
         case 'LOAD_CONVERSATION':
             return Object.assign({}, state, {messages: action.messages});
-        case 'CHANGE_SELECTED_USER':
-            return Object.assign({}, state, {currentUserId: action.userId});
+        case 'CHANGE_SELECTED_CONVERSATION':
+            return Object.assign({}, state, {type: action.conversationType, conversationId: action.conversationId});
         case 'LOGOUT':
             return initialStateConversation;
         default:
-            return state
+            return state;
     }
 };

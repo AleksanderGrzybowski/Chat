@@ -3,14 +3,15 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { login, usersList, conversation } from './reducers';
+import { login, conversationsList, conversation } from './reducers';
 import {
     login as loginAction,
     logout,
     registerUser,
     fetchUsers,
-    changeSelectedUser,
-    fetchConversationFor,
+    fetchChannels,
+    changeSelectedConversation,
+    fetchConversation,
     sendMessage,
     refreshCurrentConversation
 } from './actions';
@@ -20,7 +21,7 @@ import 'font-awesome-webpack';
 
 
 const store = createStore(
-    combineReducers({login, usersList, conversation}),
+    combineReducers({login, conversationsList, conversation}),
     applyMiddleware(thunk, createLogger())
 );
 
@@ -30,9 +31,10 @@ const mapDispatchToProps = (dispatch) => ({
     onLogout: () => dispatch(logout()),
     registerUser: (username, password) => dispatch(registerUser(username, password)),
     fetchUsers: () => dispatch(fetchUsers()),
-    changeSelectedUser: (userId) => {
-        dispatch(fetchConversationFor(userId));
-        dispatch(changeSelectedUser(userId));
+    fetchChannels: () => dispatch(fetchChannels()),
+    changeSelectedConversation: (type, conversationId) => {
+        dispatch(fetchConversation(type, conversationId));
+        dispatch(changeSelectedConversation(type, conversationId));
     },
     sendMessage: (text) => dispatch(sendMessage(text)),
     refreshCurrentConversation: () => dispatch(refreshCurrentConversation())
