@@ -15,7 +15,7 @@ class BootStrap {
     static void sampleUsers() {
         Role chatUserRole = new Role(authority: 'ROLE_CHAT_USER').save(flush: true)
 
-        ['bob', 'alice'].each {
+        ['bob', 'alice', 'tom'].each {
             User user = new User(username: it, password: it, avatarColor: DEFAULT_AVATAR_COLOR).save(flush: true)
             new UserRole(user: user, role: chatUserRole).save(flush: true)
         }
