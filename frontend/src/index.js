@@ -7,6 +7,7 @@ import { login, conversationsList, conversation } from './reducers';
 import {
     login as loginAction,
     logout,
+    validateToken,
     registerUser,
     fetchUsers,
     fetchChannels,
@@ -52,3 +53,6 @@ ReactDOM.render(
     document.getElementById('root')
 );
 
+if (localStorage.username) {
+    store.dispatch(validateToken(localStorage.username, localStorage.access_token));
+}

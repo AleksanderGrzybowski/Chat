@@ -1,16 +1,39 @@
 import axios from 'axios';
 import backendUrl from './backendUrl';
 
-const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', username, token});
+export const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', username, token});
 const loginError = () => ({type: 'LOGIN_ERROR'});
 const registerError = () => ({type: 'REGISTER_ERROR'});
+
+
+const authConfig = (token) => ({
+    headers: {
+        'Authorization': `Bearer ${token}`
+    }
+});
 
 export const login = (username, password) => (dispatch) => {
     axios.post(`${backendUrl}/api/login`, {
         username, password
     })
-        .then(({data}) => dispatch(loginSuccessful(username, data.access_token)))
+        .then(({data}) => {
+            dispatch(loginSuccessful(username, data.access_token));
+            localStorage.username = username;
+            localStorage.access_token = data.access_token;
+        })
         .catch(() => dispatch(loginError()));
+};
+
+export const logout = () => (dispatch) => {
+    localStorage.removeItem('username');
+    localStorage.removeItem('access_token');
+    dispatch({type: 'LOGOUT'});
+};
+
+export const validateToken = (username, access_token) => (dispatch) => {
+    axios.get(`${backendUrl}/api/validate`, authConfig(access_token))
+        .then(() => dispatch(loginSuccessful(username, access_token)))
+        .catch(() => dispatch(logout()));
 };
 
 
@@ -24,12 +47,6 @@ export const registerUser = (username, password) => (dispatch) => {
 
 const loadUsers = (users) => ({type: 'LOAD_USERS', users});
 const loadChannels = (channels) => ({type: 'LOAD_CHANNELS', channels});
-
-const authConfig = (token) => ({
-    headers: {
-        'Authorization': `Bearer ${token}`
-    }
-});
 
 export const fetchUsers = () => (dispatch, getState) => {
     axios.get(`${backendUrl}/api/user/chatUsers`, authConfig(getState().login.token))
@@ -49,8 +66,6 @@ export const createChannel = (name) => (dispatch, getState) => {
         .catch((err) => console.log(err));
 };
 
-export const logout = () => ({type: 'LOGOUT'});
-
 const loadConversation = (messages) => ({type: 'LOAD_CONVERSATION', messages});
 
 export const fetchConversation = (type, conversationId) => (dispatch, getState) => {
@@ -68,8 +83,12 @@ export const changeSelectedConversation = (conversationType, conversationId) => 
 
 export const sendMessage = (text) => (dispatch, getState) => {
     const {currentId, currentType} = getState().conversationsList;
-    
-    axios.post(`${backendUrl}/api/message/create`, {conversationId: currentId, type: currentType, text}, authConfig(getState().login.token))
+
+    axios.post(`${backendUrl}/api/message/create`, {
+        conversationId: currentId,
+        type: currentType,
+        text
+    }, authConfig(getState().login.token))
         .then(() => dispatch(fetchConversation(currentType, currentId)))
         .catch((err) => console.log(err));
 };
