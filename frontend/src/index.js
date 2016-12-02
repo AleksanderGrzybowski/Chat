@@ -10,6 +10,7 @@ import {
     registerUser,
     fetchUsers,
     fetchChannels,
+    createChannel,
     changeSelectedConversation,
     fetchConversation,
     sendMessage,
@@ -32,6 +33,7 @@ const mapDispatchToProps = (dispatch) => ({
     registerUser: (username, password) => dispatch(registerUser(username, password)),
     fetchUsers: () => dispatch(fetchUsers()),
     fetchChannels: () => dispatch(fetchChannels()),
+    createChannel: (name) => dispatch(createChannel(name)),
     changeSelectedConversation: (type, conversationId) => {
         dispatch(fetchConversation(type, conversationId));
         dispatch(changeSelectedConversation(type, conversationId));

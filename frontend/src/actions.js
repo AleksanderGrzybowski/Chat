@@ -43,6 +43,12 @@ export const fetchChannels = () => (dispatch, getState) => {
         .catch((err) => console.log(err));
 };
 
+export const createChannel = (name) => (dispatch, getState) => {
+    axios.post(`${backendUrl}/api/channel/create`, {name}, authConfig(getState().login.token))
+        .then(() => dispatch(fetchChannels()))
+        .catch((err) => console.log(err));
+};
+
 export const logout = () => ({type: 'LOGOUT'});
 
 const loadConversation = (messages) => ({type: 'LOAD_CONVERSATION', messages});

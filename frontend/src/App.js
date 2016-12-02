@@ -44,6 +44,7 @@ export default class App extends Component {
                         <ConversationsList
                             fetchUsers={this.props.fetchUsers}
                             fetchChannels={this.props.fetchChannels}
+                            createChannel={this.props.createChannel}
                             conversationsList={this.props.conversationsList}
                             changeSelectedConversation={this.props.changeSelectedConversation}
                         />
