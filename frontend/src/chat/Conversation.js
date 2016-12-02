@@ -7,12 +7,13 @@ export default class Conversation extends Component {
         const content = (this.props.messages.length === 0) ? (
             <h3 className="text-center">No messages yet</h3>
         ) : (
-            this.props.messages.map(m =>
+            this.props.messages.map(message =>
                 <Message
-                    key={m.id}
-                    from={m.from.username}
-                    avatarColor={m.from.avatarColor}
-                    text={m.text}
+                    key={message.id}
+                    from={message.from.username}
+                    dateSent={message.dateSent}
+                    avatarColor={message.from.avatarColor}
+                    text={message.text}
                 />
             )
         );
