@@ -3,26 +3,12 @@ import LoginForm from './chat/LoginForm';
 import ConversationsList from './chat/ConversationsList';
 import Conversation from './chat/Conversation';
 import NewMessage from './chat/NewMessage';
-import { Grid, Row, Col, Navbar, Nav, NavItem } from 'react-bootstrap';
+import { Grid, Row, Col} from 'react-bootstrap';
+import ChatNavbar from './ChatNavbar';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class App extends Component {
     render() {
-        const navbar = (
-            <Navbar>
-                <Navbar.Header>
-                    <Navbar.Brand>
-                        {this.props.login.username}
-                    </Navbar.Brand>
-                </Navbar.Header>
-                <Nav>
-                    <NavItem onClick={this.props.onLogout}>
-                        Logout <i className="fa fa-sign-out"/>
-                    </NavItem>
-                </Nav>
-            </Navbar>
-        );
-
         const mainPanel = (this.props.conversationsList.currentId !== null) ? (
             <Col md={9}>
                 <Row>
@@ -49,7 +35,10 @@ export default class App extends Component {
 
         return this.props.login.loggedIn ? (
             <Grid>
-                {navbar}
+                <ChatNavbar
+                    username={this.props.login.username}
+                    logout={this.props.onLogout}
+                />
                 <Row>
                     <Col md={3}>
                         <ConversationsList
