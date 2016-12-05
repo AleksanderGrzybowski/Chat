@@ -67,4 +67,6 @@ const fetchAndRespond = () => {
 
 log.info('Starting calculator bot, configuration:');
 log.info(config);
-login(config.username, config.password).then(() => setInterval(fetchAndRespond, config.pollingInterval));
+login(config.username, config.password)
+    .then(() => setInterval(fetchAndRespond, config.pollingInterval))
+    .catch(err => log.error(err));
