@@ -1,6 +1,7 @@
 import React from 'react';
 import { Panel, Row, Col } from 'react-bootstrap';
 import { UserIcon } from './Icons';
+import ellipsisStyle from './ellipsisStyle';
 
 const extractTime = (date) => date.substr(11, 5);
 
@@ -12,7 +13,7 @@ const Message = ({from, avatarColor, text, dateSent}) => (
                     ({extractTime(dateSent)})
                 </span>
             </Col>
-            <Col xs={2}>
+            <Col xs={2} style={ellipsisStyle}>
                 <UserIcon style={{marginRight: 10}} color={avatarColor}/>
                 <span style={{fontWeight: 'bold'}}>{from}</span>
             </Col>

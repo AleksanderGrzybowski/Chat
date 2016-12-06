@@ -1,6 +1,7 @@
 import React from 'react';
 import { ListGroupItem } from 'react-bootstrap';
 import { UserIcon, ChannelIcon } from './Icons';
+import ellipsisStyle from './ellipsisStyle';
 
 const ConversationListElement = ({selected, type, conversationName, iconColor, changeSelectedConversation}) => {
     const iconProps = {
@@ -11,7 +12,7 @@ const ConversationListElement = ({selected, type, conversationName, iconColor, c
     const icon = (type === 'DIRECT') ? <UserIcon {...iconProps}/> : <ChannelIcon {...iconProps}/>;
 
     return (
-        <ListGroupItem
+        <ListGroupItem style={ellipsisStyle}
             onClick={changeSelectedConversation}
             active={selected}
         >

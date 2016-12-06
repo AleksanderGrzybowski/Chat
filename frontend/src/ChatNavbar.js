@@ -8,8 +8,8 @@ const ChatNavbar = ({username, logout}) => (
                 {username}
             </Navbar.Brand>
         </Navbar.Header>
-        <Nav>
-            <NavItem onClick={logout}>
+        <Nav pullRight>
+            <NavItem onClick={logout} style={{marginRight: 40}}>
                 Logout <i className="fa fa-sign-out"/>
             </NavItem>
         </Nav>
