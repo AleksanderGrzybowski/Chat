@@ -20,7 +20,7 @@ export default class App extends Component {
                     </Col>
                 </Row>
                 <Row>
-                    <Col md={12}>
+                    <Col md={12} style={{marginTop: 20}}>
                         <NewMessage sendMessage={this.props.sendMessage}/>
                     </Col>
                 </Row>

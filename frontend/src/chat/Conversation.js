@@ -19,7 +19,7 @@ export default class Conversation extends Component {
         );
 
         return (
-            <div>
+            <div style={{height: '70vh', overflowY: 'scroll'}}>
                 {content}
                 <ReactInterval callback={this.props.refreshCurrentConversation} enabled={true} timeout={1000}/>
             </div>

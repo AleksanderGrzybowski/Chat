@@ -18,4 +18,4 @@ To post new message to channel, you'll need an conversationId (this is hardcoded
 
 #### `GET /api/message/listAll conversationId=$id type=$type`
 
-To list new messages, use this endpoint. For simplicity, only the last 5 messages are listed. If there are lots of messages sent, something may be lost, but in this project I don't really need so much resilience. Type should be `CHANNEL`. A good way to make sensible request-response flow is to memorize, which messages had we already responded to (you can use `id`-s for this).
+To list new messages, use this endpoint. For simplicity, all messages are listed. Type should be `CHANNEL`. A good way to make sensible request-response flow is to memorize, which messages had we already responded to (you can use `id`-s for this).

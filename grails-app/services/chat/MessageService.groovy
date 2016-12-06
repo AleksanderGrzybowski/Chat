@@ -4,8 +4,6 @@ class MessageService {
 
     def springSecurityService
 
-    final int MESSAGES_PAGE_LIMIT = 7
-
     List<Message> listAll(ListAllMessagesDto dto) {
         List<Message> messages
 
@@ -26,12 +24,12 @@ class MessageService {
             Channel channel = Channel.findById(dto.conversationId)
             log.info("Listing messages for channel ${channel.name}")
 
-            messages = ChannelMessage.findAllByTo(channel).sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
+            messages = ChannelMessage.findAllByTo(channel).sort { it.dateSent }
         } else {
             throw new AssertionError()
         }
 
-        return messages.sort { it.dateSent }.takeRight(MESSAGES_PAGE_LIMIT)
+        return messages.sort { it.dateSent }
     }
 
     Message create(PostNewMessageDto dto) {
