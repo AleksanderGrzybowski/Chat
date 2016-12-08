@@ -41,7 +41,7 @@ class User implements Serializable {
 
     static constraints = {
         password blank: false, password: true
-        username blank: false, unique: true
+        username blank: false, unique: true, maxSize: 50
     }
 
     Map getJson() {

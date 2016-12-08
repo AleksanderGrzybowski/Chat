@@ -24,7 +24,7 @@ class MessageService {
             Channel channel = Channel.findById(dto.conversationId)
             log.info("Listing messages for channel ${channel.name}")
 
-            messages = ChannelMessage.findAllByTo(channel).sort { it.dateSent }
+            messages = ChannelMessage.findAllByTo(channel)
         } else {
             throw new AssertionError()
         }

@@ -6,6 +6,10 @@ class Message {
     Date dateSent
     
     User from
+    
+    static constraints = {
+        text maxSize: 1000
+    }
 
     Map getJson() {
         return [
