@@ -1,16 +1,24 @@
 import axios from 'axios';
 import backendUrl from './backendUrl';
 
+const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
 export const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', username, token});
 const loginError = () => ({type: 'LOGIN_ERROR'});
 const registerError = () => ({type: 'REGISTER_ERROR'});
-
 
 const authConfig = (token) => ({
     headers: {
         'Authorization': `Bearer ${token}`
     }
 });
+
+export const healthCheck = () => (dispatch) => {
+    axios.get(`${backendUrl}/health`, {timeout: 10000}) // ignore if successful
+        .catch(err => {
+            console.log(err);
+            dispatch(backendNotHealthy());
+        })
+};
 
 export const login = (username, password) => (dispatch) => {
     axios.post(`${backendUrl}/api/login`, {

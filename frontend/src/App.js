@@ -5,10 +5,15 @@ import Conversation from './chat/Conversation';
 import NewMessage from './chat/NewMessage';
 import { Grid, Row, Col} from 'react-bootstrap';
 import ChatNavbar from './ChatNavbar';
+import ErrorPage from './chat/ErrorPage';
 import 'bootstrap/dist/css/bootstrap.css';
 
 export default class App extends Component {
     render() {
+        if (!this.props.health.healthy) {
+            return <ErrorPage/>
+        }
+        
         const mainPanel = (this.props.conversationsList.currentId !== null) ? (
             <Col md={9}>
                 <Row>

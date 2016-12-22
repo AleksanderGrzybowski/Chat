@@ -3,8 +3,9 @@ import ReactDOM from 'react-dom';
 import { createStore, combineReducers, applyMiddleware } from 'redux';
 import { connect, Provider } from 'react-redux';
 import thunk from 'redux-thunk';
-import { login, conversationsList, conversation } from './reducers';
+import { health, login, conversationsList, conversation } from './reducers';
 import {
+    healthCheck,
     login as loginAction,
     logout,
     validateToken,
@@ -23,7 +24,7 @@ import 'font-awesome-webpack';
 
 
 const store = createStore(
-    combineReducers({login, conversationsList, conversation}),
+    combineReducers({health, login, conversationsList, conversation}),
     applyMiddleware(thunk, createLogger())
 );
 
@@ -52,6 +53,8 @@ ReactDOM.render(
     </Provider>,
     document.getElementById('root')
 );
+
+store.dispatch(healthCheck());
 
 if (localStorage.username) {
     store.dispatch(validateToken(localStorage.username, localStorage.access_token));

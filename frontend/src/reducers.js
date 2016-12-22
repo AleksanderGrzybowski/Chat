@@ -57,3 +57,13 @@ export const conversation = (state = initialStateConversation, action) => {
             return state;
     }
 };
+
+const initialStateHealth = {healthy: true};
+export const health = (state = initialStateHealth, action) => {
+    switch (action.type) {
+        case 'BACKEND_HEALTH_CHECK_FAIL':
+            return Object.assign({}, state, {healthy: false});
+        default:
+            return state;
+    }
+};
