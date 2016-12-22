@@ -35,7 +35,7 @@ export default class Conversation extends Component {
         return (
             <div style={{height: '70vh', overflowY: 'scroll'}} ref="scrollable">
                 {content}
-                <ReactInterval callback={this.props.refreshCurrentConversation} enabled={true} timeout={1000}/>
+                <ReactInterval callback={this.props.refreshCurrentConversation} enabled={true} timeout={4000}/>
             </div>
         )
     }
