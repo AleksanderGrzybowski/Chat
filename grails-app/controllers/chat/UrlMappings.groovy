@@ -13,8 +13,6 @@ class UrlMappings {
         "/api/message/listAll"(controller: 'message', action: 'listAll')
         "/api/message/create"(controller: 'message', action: 'create')
 
-        "/"(controller: 'index', action: 'redirectToIndexHtml')
-        
         "/health"(controller: 'health', action: 'index')
         
         "500"(controller: 'error')
