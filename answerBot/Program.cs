@@ -125,7 +125,8 @@ public class Bot
         Console.WriteLine("Listing messages");
         HttpClient client = authHttpClient();
 
-        var response = client.GetAsync(baseUrl + "/api/message/listAll?conversationId=1&type=CHANNEL").Result;
+        var response = client.GetAsync(baseUrl + "/api/message/listAll?conversationId=" + channelId + "&type=CHANNEL")
+        .Result;
 
         return JsonConvert.DeserializeObject<List<MessageDto>>(
                  response.Content.ReadAsStringAsync().Result
@@ -147,7 +148,13 @@ public class Program
     public static void Main(string[] args)
     {
         Console.WriteLine("Starting answer bot");
-        Bot bot = new Bot("http://kelog.pl:24680", "bob", "bob", 1);
+        
+        string backendUrl = Environment.GetEnvironmentVariable("CHAT_BACKEND_URL") ?? "http://localhost:8080";
+        string chatUsername = Environment.GetEnvironmentVariable("CHAT_USERNAME") ?? "bob";
+        string chatPassword = Environment.GetEnvironmentVariable("CHAT_PASSWORD") ?? "bob";
+        int chatConversationId = Int32.Parse(Environment.GetEnvironmentVariable("CHAT_CONVERSATION_ID") ?? "2"); // :)
+        
+        Bot bot = new Bot(backendUrl, chatUsername, chatPassword, chatConversationId);
 
         bot.LogIn();
 
