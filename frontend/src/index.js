@@ -19,8 +19,8 @@ import {
     refreshCurrentConversation
 } from './actions';
 import App from './App';
-import createLogger from 'redux-logger';
-import 'font-awesome-webpack';
+import { createLogger } from 'redux-logger';
+import 'font-awesome/css/font-awesome.css';
 
 
 const store = createStore(
