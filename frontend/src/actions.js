@@ -32,6 +32,16 @@ export const login = (username, password) => (dispatch) => {
         .catch(() => dispatch(loginError()));
 };
 
+export const loginAsGuest = () => (dispatch) => {
+    axios.post(`${backendUrl}/api/guest/loginAsGuest`, {})
+        .then(({data}) => {
+            dispatch(loginSuccessful(data.username, data.access_token));
+            localStorage.username = data.username;
+            localStorage.access_token = data.access_token;
+        })
+        .catch(() => dispatch(loginError()));
+};
+
 export const logout = () => (dispatch) => {
     localStorage.removeItem('username');
     localStorage.removeItem('access_token');
@@ -103,6 +113,6 @@ export const sendMessage = (text) => (dispatch, getState) => {
 
 export const refreshCurrentConversation = () => (dispatch, getState) => {
     const {currentId, currentType} = getState().conversationsList;
-    
+
     dispatch(fetchConversation(currentType, currentId));
 };

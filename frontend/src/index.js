@@ -7,6 +7,7 @@ import { health, login, conversationsList, conversation } from './reducers';
 import {
     healthCheck,
     login as loginAction,
+    loginAsGuest,
     logout,
     validateToken,
     registerUser,
@@ -31,6 +32,7 @@ const store = createStore(
 const mapStateToProps = (state) => state;
 const mapDispatchToProps = (dispatch) => ({
     onLogin: (username, password) => dispatch(loginAction(username, password)),
+    onLoginAsGuest: () => dispatch(loginAsGuest()),
     onLogout: () => dispatch(logout()),
     registerUser: (username, password) => dispatch(registerUser(username, password)),
     fetchUsers: () => dispatch(fetchUsers()),

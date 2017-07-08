@@ -1,6 +1,6 @@
 import React, { Component } from 'react';
 import ReactDOM from 'react-dom';
-import { FormGroup, FormControl, Form, Button } from 'react-bootstrap';
+import { Button, Form, FormControl, FormGroup } from 'react-bootstrap';
 import ErrorAlert from './ErrorAlert';
 
 export default class LoginForm extends Component {
@@ -18,9 +18,10 @@ export default class LoginForm extends Component {
     usernameChange = (e) => this.setState({username: e.target.value});
     passwordChange = (e) => this.setState({password: e.target.value});
     repeatPasswordChange = (e) => this.setState({repeatPassword: e.target.value});
+
     isFormValid = () => {
         const allNotEmpty = (values) => values.every(e => e.length > 0); // FP rocks!
-        
+
         if (this.state.registerMode) {
             return allNotEmpty([this.state.username, this.state.password, this.state.repeatPassword])
                 && (this.state.password === this.state.repeatPassword);
@@ -30,10 +31,12 @@ export default class LoginForm extends Component {
     };
 
     login = () => this.props.onLogin(this.state.username, this.state.password);
+    loginAsGuest = () => this.props.onLoginAsGuest();
     register = () => this.props.registerUser(this.state.username, this.state.password);
+
     submitForm = () => {
         if (!this.isFormValid()) return;
-        
+
         if (this.state.registerMode) {
             this.register();
         } else {
@@ -77,7 +80,18 @@ export default class LoginForm extends Component {
                 </Button>
             </FormGroup>
         );
-        
+
+        const loginAsGuestButton = (
+            <FormGroup>
+                <Button
+                    block bsSize="large" bsStyle="primary"
+                    onClick={this.loginAsGuest}
+                >
+                    Login as guest
+                </Button>
+            </FormGroup>
+        );
+
         const repeatPasswordInput = this.state.registerMode ? (
             <FormGroup>
                 <FormControl
@@ -120,6 +134,8 @@ export default class LoginForm extends Component {
                         {this.state.registerMode ? 'Register' : 'Login'}
                     </Button>
                 </FormGroup>
+
+                {!this.state.registerMode && loginAsGuestButton}
                 {registerButton}
                 {this.props.loginError ? loginErrorMessage : null}
                 {this.props.registerError ? registerErrorMessage : null}

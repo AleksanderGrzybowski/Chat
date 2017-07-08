@@ -3,6 +3,8 @@ package chat
 class UrlMappings {
 
     static mappings = {
+        "/api/guest/loginAsGuest"(controller: 'user', action: 'loginAsGuest')
+        
         "/api/guest/register"(controller: 'user', action: 'register')
         
         "/api/user/chatUsers"(controller: 'user', action: 'listChatUsers')

@@ -66,6 +66,7 @@ export default class App extends Component {
                         </h1>
                         <LoginForm
                             onLogin={this.props.onLogin}
+                            onLoginAsGuest={this.props.onLoginAsGuest}
                             registerUser={this.props.registerUser}
                             loginError={this.props.login.loginError}
                             registerError={this.props.login.registerError}
