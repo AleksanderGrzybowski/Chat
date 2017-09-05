@@ -149,9 +149,9 @@ public class Program
     {
         Console.WriteLine("Starting answer bot");
         
-        string backendUrl = Environment.GetEnvironmentVariable("CHAT_BACKEND_URL") ?? "http://localhost:8080";
-        string chatUsername = Environment.GetEnvironmentVariable("CHAT_USERNAME") ?? "bob";
-        string chatPassword = Environment.GetEnvironmentVariable("CHAT_PASSWORD") ?? "bob";
+        string backendUrl = Environment.GetEnvironmentVariable("BACKEND_URL") ?? "http://localhost:8080";
+        string chatUsername = Environment.GetEnvironmentVariable("BOT_USERNAME") ?? "bob";
+        string chatPassword = Environment.GetEnvironmentVariable("BOT_PASSWORD") ?? "bob";
         int chatConversationId = Int32.Parse(Environment.GetEnvironmentVariable("CHAT_CONVERSATION_ID") ?? "2"); // :)
         
         Bot bot = new Bot(backendUrl, chatUsername, chatPassword, chatConversationId);

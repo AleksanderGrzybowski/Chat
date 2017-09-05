@@ -1,8 +1,15 @@
-FROM java:8
+FROM openjdk:8-jdk
+
+COPY . /Chat
+WORKDIR /Chat
+
+RUN ./gradlew clean test bootRepackage
+
+FROM openjdk:8-jre
 
 ENV PORT 8080
 
-COPY build/libs/Chat-0.1.war /
+COPY --from=0 /Chat/build/libs/Chat-0.1.war /
 
 WORKDIR /
 

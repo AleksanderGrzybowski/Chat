@@ -9,4 +9,5 @@ COPY . /calculatorBot
 WORKDIR /calculatorBot
 
 RUN npm install
+
 CMD npm start
