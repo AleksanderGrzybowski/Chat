@@ -13,4 +13,4 @@ COPY --from=0 /Chat/build/libs/Chat-0.1.war /
 
 WORKDIR /
 
-CMD java -Dserver.port=$PORT -jar Chat-0.1.war
+CMD java -Xmx300m -Dserver.port=$PORT -jar Chat-0.1.war
