@@ -1,4 +1,4 @@
-FROM node:7.9.0
+FROM node:8.4.0
 
 COPY . /frontend
 WORKDIR /frontend

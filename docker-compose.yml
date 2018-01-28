@@ -3,37 +3,18 @@ services:
   frontend:
     image: chat-frontend
     build: frontend
-    ports:
-      - 0.0.0.0:8081:80
     environment:
-      - BACKEND_URL=${BACKEND_URL}
+      - BACKEND_URL=
+    restart: always
       
   backend:
     image: chat-backend
     build: .
-    ports:
-      - 0.0.0.0:8080:8080
-    environment:
-      - PORT=8080
-      - BOT_USERNAME=${BOT_USERNAME}
-      - BOT_PASSWORD=${BOT_PASSWORD}
-      
-  calculatorBot:
-    image: chat-calculatorbot
-    build: calculatorBot
-    environment:
-      - BACKEND_URL=http://backend:8080
-      - BOT_USERNAME=${BOT_USERNAME}
-      - BOT_PASSWORD=${BOT_PASSWORD}
-      - CHAT_CONVERSATION_ID=${CHAT_CONVERSATION_ID}
     restart: always
       
-  answerBot:
-    image: chat-answerbot
-    build: answerBot
-    environment:
-      - BACKEND_URL=http://backend:8080
-      - BOT_USERNAME=${BOT_USERNAME}
-      - BOT_PASSWORD=${BOT_PASSWORD}
-      - CHAT_CONVERSATION_ID=${CHAT_CONVERSATION_ID}
+  proxy:
+    image: chat-proxy
+    build: nginx
+    ports:
+      - 64152:80
     restart: always
