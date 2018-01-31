@@ -45,6 +45,7 @@ export default class LoginForm extends Component {
     };
 
     switchToRegisterMode = () => this.setState({registerMode: true, username: '', password: '', repeatPassword: ''});
+    switchToLoginMode = () => this.setState({registerMode: false, username: '', password: '', repeatPassword: ''});
 
     onKeypress = (e) => {
         if (e.key === 'Enter') {
@@ -79,6 +80,17 @@ export default class LoginForm extends Component {
                     Or register...
                 </Button>
             </FormGroup>
+        );
+        
+        const backButton =  (
+          <FormGroup>
+              <Button
+                block bsSize="large"
+                onClick={this.switchToLoginMode}
+              >
+                  Back
+              </Button>
+          </FormGroup>
         );
 
         const loginAsGuestButton = (
@@ -137,6 +149,7 @@ export default class LoginForm extends Component {
 
                 {!this.state.registerMode && loginAsGuestButton}
                 {registerButton}
+                {this.state.registerMode && backButton}
                 {this.props.loginError ? loginErrorMessage : null}
                 {this.props.registerError ? registerErrorMessage : null}
             </Form>
