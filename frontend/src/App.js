@@ -62,7 +62,7 @@ export default class App extends Component {
                 <Row>
                     <Col md={6} mdOffset={3} xs={12}>
                         <h1 className="text-center">
-                            <i className="fa fa-comments"/> OiRPOS chat
+                            <i className="fa fa-comments"/> Chat
                         </h1>
                         <LoginForm
                             onLogin={this.props.onLogin}
