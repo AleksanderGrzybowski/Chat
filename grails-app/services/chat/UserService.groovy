@@ -1,5 +1,6 @@
 package chat
 
+import com.oblac.nomen.Nomen
 import org.apache.commons.lang3.RandomStringUtils
 import org.springframework.security.core.GrantedAuthority
 import org.springframework.security.core.userdetails.UserDetails
@@ -14,7 +15,7 @@ class UserService {
 
     UserDetails createGuestUser() {
         User guest = createAndSaveUser(
-                'guest_' + RandomStringUtils.randomNumeric(5),
+                Nomen.randomName(),
                 RandomStringUtils.randomAlphanumeric(20)
         )
 
