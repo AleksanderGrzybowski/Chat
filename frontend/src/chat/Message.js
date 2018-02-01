@@ -13,7 +13,7 @@ const Message = ({from, avatarColor, text, dateSent}) => (
                     ({extractTime(dateSent)})
                 </span>
             </Col>
-            <Col xs={2} style={ellipsisStyle}>
+            <Col xs={3} style={ellipsisStyle}>
                 <UserIcon style={{marginRight: 10}} color={avatarColor}/>
                 <span style={{fontWeight: 'bold'}}>{from}</span>
             </Col>
