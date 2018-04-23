@@ -1,5 +1,5 @@
-package chat;
+package chat
 
-public enum MessageType {
+enum MessageType {
     DIRECT, CHANNEL
 }

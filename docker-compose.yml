@@ -3,8 +3,6 @@ services:
   frontend:
     image: chat-frontend
     build: frontend
-    environment:
-      - BACKEND_URL=
     restart: always
       
   backend:

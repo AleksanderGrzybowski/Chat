@@ -17,5 +17,5 @@ grails.plugin.springsecurity.filterChain.chainMap = [
         [pattern: '/**', filters: 'JOINED_FILTERS,-restTokenValidationFilter,-restExceptionTranslationFilter']
 ]
 
-grails.plugin.springsecurity.rest.token.storage.jwt.expiration = 365*24*3600 // seconds
+grails.plugin.springsecurity.rest.token.storage.jwt.expiration = 365 * 24 * 3600 // seconds
 grails.plugin.springsecurity.rest.token.storage.jwt.secret = RandomStringUtils.randomAlphanumeric(32)

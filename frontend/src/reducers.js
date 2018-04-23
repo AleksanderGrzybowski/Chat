@@ -49,8 +49,6 @@ export const conversation = (state = initialStateConversation, action) => {
     switch (action.type) {
         case 'LOAD_CONVERSATION':
             return Object.assign({}, state, {messages: action.messages});
-        // case 'CHANGE_SELECTED_CONVERSATION':
-        //     return Object.assign({}, state, {type: action.conversationType, conversationId: action.conversationId});
         case 'LOGOUT':
             return initialStateConversation;
         default:
