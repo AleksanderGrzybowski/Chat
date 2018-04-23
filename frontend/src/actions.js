@@ -1,5 +1,6 @@
 import axios from 'axios';
-import backendUrl from './backendUrl';
+
+const backendUrl = ''; // through proxy
 
 const backendNotHealthy = () => ({type: 'BACKEND_HEALTH_CHECK_FAIL'});
 export const loginSuccessful = (username, token) => ({type: 'LOGIN_SUCCESSFULL', username, token});
