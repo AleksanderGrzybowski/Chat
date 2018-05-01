@@ -5,7 +5,7 @@ WORKDIR /Chat
 
 RUN ./gradlew clean test bootRepackage
 
-FROM openjdk:8-jre
+FROM openjdk:8-jre-alpine
 
 ENV PORT 8080
 
